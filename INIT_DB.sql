@@ -1,4 +1,28 @@
-CREATE TABLE sqlite_sequence(name,seq);
+DELETE FROM sqlite_sequence;
+
+DROP TABLE IF EXISTS activity_levels;
+
+DROP TABLE IF EXISTS barking_levels;
+
+DROP TABLE IF EXISTS characteristics;
+
+DROP TABLE IF EXISTS coat_types;
+
+DROP TABLE IF EXISTS groups;
+
+DROP TABLE IF EXISTS sheddings;
+
+DROP TABLE IF EXISTS sizes;
+
+DROP TABLE IF EXISTS temperaments;
+
+DROP TABLE IF EXISTS trainabilities;
+
+DROP TABLE IF EXISTS dogs;
+
+DROP TABLE IF EXISTS dogs_temperaments;
+
+-- CREATE TABLE sqlite_sequence(name,seq);
 
 CREATE TABLE "activity_levels" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `desc` TEXT NOT NULL );
 
@@ -18,26 +42,29 @@ CREATE TABLE "temperaments" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UN
 
 CREATE TABLE `trainabilities` ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `desc` TEXT NOT NULL );
 
-INSERT INTO groups (desc)
-VALUES ('Sporting Group'), ('Hound Group'), ('Working Group'), ('Terrier Group'), ('Toy Group'), ('Non-Sporting Group'), ('Herding Group'), ('Miscellaneous Class'), ('Foundation Stock Service');
+insert into groups (desc)
+values ('sporting group'), ('hound group'), ('working group'), ('terrier group'), ('toy group'), ('non-sporting group'), ('herding group'), ('miscellaneous class'), ('foundation stock service');
 
-INSERT INTO activity_levels (desc)
-VALUES ('Needs Lots Of Activity'), ('Regular Exercise'), ('Energetic'), ('Calm');
+insert into activity_levels (desc)
+values ('needs lots of activity'), ('regular exercise'), ('energetic'), ('calm');
 
-INSERT INTO characteristics (desc)
-VALUES ('Smallest Dog Breeds'), ('Medium Dog Breeds'), ('Largest Dog Breeds'), ('Smartest Dogs'), ('Hypoallergenic Dogs'), ('Best Family Dogs'), ('Best Guard Dogs'), ('Best Dog Breeds For Children'), ('Best Dogs For Apartments Dwellers'), ('Hairless Dog Breeds');
+insert into barking_levels (desc)
+values ('when necessary'), ('infrequent'), ('medium'), ('frequent'), ('likes to be vocal');
 
-INSERT INTO coat_types (desc)
-VALUES ('Hairless'), ('Short'), ('Medium'), ('Long'), ('Smooth'), ('Wire');
+insert into characteristics (desc)
+values ('smallest dog breeds'), ('medium dog breeds'), ('largest dog breeds'), ('smartest dogs'), ('hypoallergenic dogs'), ('best family dogs'), ('best guard dogs'), ('best dog breeds for children'), ('best dogs for apartments dwellers'), ('hairless dog breeds');
 
-INSERT INTO sheddings (desc)
-VALUES ('Infrequent'), ('Seasonal'), ('Frequent'), ('Occasional'), ('Regularly');
+insert into coat_types (desc)
+values ('hairless'), ('short'), ('medium'), ('long'), ('smooth'), ('wire');
 
-INSERT INTO sizes (desc)
-VALUES ('XSmall'), ('Small'), ('Medium'), ('Large'), ('XLarge');
+insert into sheddings (desc)
+values ('infrequent'), ('seasonal'), ('frequent'), ('occasional'), ('regularly');
 
-INSERT INTO trainabilities (desc)
-VALUES ('May Be Stubborn'), ('Agreeable'), ('Eager To Please'), ('Independent'), ('Easy Training');
+insert into sizes (desc)
+values ('xsmall'), ('small'), ('medium'), ('large'), ('xlarge');
+
+insert into trainabilities (desc)
+values ('may be stubborn'), ('agreeable'), ('eager to please'), ('independent'), ('easy training');
 
 CREATE TABLE "dogs" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `name` TEXT NOT NULL, `desc` TEXT, `height_min` NUMERIC, `height_max` NUMERIC, `weight_min` NUMERIC, `weight_max` NUMERIC, `life_expectancy_min` INTEGER, `life_expectancy_max` INTEGER, `image` TEXT, `group` INTEGER, `activity_level` INTEGER, `barking_level` INTEGER, `characteristics` INTEGER, `coat_type` INTEGER, `shedding` INTEGER, `size` INTEGER, `trainability` INTEGER, `popularity` INTEGER, `url` TEXT, FOREIGN KEY(`trainability`) REFERENCES `trainabilities`(`id`), FOREIGN KEY(`activity_level`) REFERENCES `characteristics`(`id`), FOREIGN KEY(`characteristics`) REFERENCES `characteristics`(`id`), FOREIGN KEY(`shedding`) REFERENCES `sheddings`(`id`), FOREIGN KEY(`barking_level`) REFERENCES `barking_levels`(`id`), FOREIGN KEY(`group`) REFERENCES `groups`(`id`), FOREIGN KEY(`coat_type`) REFERENCES `coat_types`(`id`), FOREIGN KEY(`size`) REFERENCES `sizes`(`id`) );
 
