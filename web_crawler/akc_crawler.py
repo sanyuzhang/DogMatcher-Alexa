@@ -7,20 +7,6 @@ import requests
 import threading
 
 
-LINE_SEPARATOR = '\n'
-BAR_SEPARATOR = '-'
-COMMA_SEPARATOR = ','
-
-BASE_URL = 'https://www.akc.org/dog-breeds/'
-
-TEMERAMENT_HTML_CLASS = 'attribute-list__description attribute-list__text attribute-list__text--lg mb4 bpm-mb5 pb0 d-block'
-DESC_HTML_CLASS = 'breed-hero__footer'
-DETAILS_HTML_CLASS = 'attribute-list__description attribute-list__text '
-IMAGE_HTML_CLASS = 'media-wrap__image'
-
-DOGS_URLS_FILE = 'dogs2urls.txt'
-ERROR_LOG = 'error_dogs.txt'
-
 def write_error_dogs(url, dog_name):
     """ Write error logs to file
 
@@ -99,11 +85,11 @@ def parse_2_store(dog_name, html, url):
     """
     print("STORING DOG -", dog_name, url)
     try:
+        # Initialization
         dog_insert_cols = "name, desc, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max, image, dog_group, activity_level, barking_level, coat_type, shedding, size, trainability, popularity, url"
-        dog_group_id, activity_level_id, barking_level_id, coat_type_id, shedding_id, trainability_id, size_id = -1, -1, -1, -1, -1, -1, -1
         popularity, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max = -1, sys.maxsize, -1, sys.maxsize, -1, sys.maxsize, -1
-        characteristic_ids, temperament_ids = [], []
-        image = ''
+        dog_group_id, activity_level_id, barking_level_id, coat_type_id, shedding_id, trainability_id, size_id = -1, -1, -1, -1, -1, -1, -1
+        characteristic_ids, temperament_ids, image = [], [], ''
 
         soup = BeautifulSoup(html, 'html.parser')
 
@@ -175,7 +161,7 @@ def parse_2_store(dog_name, html, url):
             size_id = db_select('sizes', 'desc', size)[0]
 
         dog_insert_data = (
-        dog_name, desc, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max, 
+            dog_name, desc, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max, 
             image, dog_group_id, activity_level_id, barking_level_id, shedding_id, coat_type_id, size_id, trainability_id, popularity, url
         )
         dog_id = db_insert_single('dogs', dog_insert_cols, dog_insert_data)
@@ -217,15 +203,26 @@ def db_insert_many(table, cols, values):
     cursor.executemany(sql, values)
 
 
+TEMERAMENT_HTML_CLASS = 'attribute-list__description attribute-list__text attribute-list__text--lg mb4 bpm-mb5 pb0 d-block'
+DETAILS_HTML_CLASS = 'attribute-list__description attribute-list__text '
+IMAGE_HTML_CLASS = 'media-wrap__image'
+DESC_HTML_CLASS = 'breed-hero__footer'
+
+DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '../dogs.db3'
+LINE_SEPARATOR, COMMA_SEPARATOR, BAR_SEPARATOR = '\n', ',', '-'
+DOGS_FILE, ERROR_LOG = 'dogs.txt', 'error_dogs.txt'
+
+HANDLING_ERROR = False
+
+
 if __name__ == '__main__':
     
-    HANDLING_ERROR = False
     if HANDLING_ERROR:
         dog_url_lst = get_dog_url_lst(ERROR_LOG)
     else:
-        dog_url_lst = get_dog_url_lst(DOGS_URLS_FILE)
+        dog_url_lst = get_dog_url_lst(DOGS_FILE)
 
-    conn = sqlite3.connect('../dogs.db3', isolation_level=None, check_same_thread=False)
+    conn = sqlite3.connect(DB_PATH, isolation_level=None, check_same_thread=False)
     for pair in dog_url_lst:
         dog = pair['dog']
         url = pair['url']
