@@ -207,11 +207,10 @@ TEMERAMENT_HTML_CLASS = 'attribute-list__description attribute-list__text attrib
 DETAILS_HTML_CLASS = 'attribute-list__description attribute-list__text '
 IMAGE_HTML_CLASS = 'media-wrap__image'
 DESC_HTML_CLASS = 'breed-hero__footer'
-
-DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '../dogs.db3'
 LINE_SEPARATOR, COMMA_SEPARATOR, BAR_SEPARATOR = '\n', ',', '-'
-DOGS_FILE, ERROR_LOG = 'dogs.txt', 'error_dogs.txt'
-
+DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '../dogs.db3'
+DOGS_FILE = os.path.dirname(os.path.realpath(__file__)) + 'dogs.txt'
+ERROR_LOG = os.path.dirname(os.path.realpath(__file__)) + 'error_dogs.txt'
 HANDLING_ERROR = False
 
 
