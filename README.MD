@@ -1,3 +1,9 @@
+#Alexa Skill Development
+https://developer.amazon.com
+
+Email:demondevil034@gmail.com
+password:asr@18fall
+
 ## Server
 
 IP: 45.63.10.52  
