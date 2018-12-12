@@ -27,7 +27,8 @@ For example: `https://kksk.biz/dogmatcher/abc` will be redirected to `localhost:
 
 API URL (POST): [https://kksk.biz/dogmatcher/](https://kksk.biz/dogmatcher/)
 
-Python服务器：flask
+Python Server：flask
+
 To run flask:
 
 ```
@@ -39,14 +40,14 @@ python flask_test.py
 
 ## Setups
 
-* Install Virtual Env
+* Install Virtual Env (pip3)
 ```
-pip3 install virtualenv 
+pip install virtualenv 
 ```
 
 * Create your own ENV like
 ```
-virtualEnv ENV
+virtualenv ENV
 ```
 
 * Source your ENV
