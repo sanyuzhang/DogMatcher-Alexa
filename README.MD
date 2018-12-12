@@ -1,3 +1,37 @@
+## Server
+
+IP: 45.63.10.52  
+Domain Name: [https://kksk.biz](https://kksk.biz)  
+User & passpword:
+
+```
+# DONT SHARE
+root s8E,q2!TP*Cb$Zwg
+jeff 498079667
+
+# to login via ssh:
+# ssh kksk.biz -l jeff
+```
+
+Server：nginx. Site conf file location (don't modify)：`/etc/nginx/sites-available/main`  
+
+All request made to `/dogmatcher` will be redirected (via nginx proxy) to localhost:5555 where Flask should be listening on.   
+
+For example: `https://kksk.biz/dogmatcher/abc` will be redirected to `localhost:5555/abc`
+
+
+API URL (POST): [https://kksk.biz/dogmatcher/](https://kksk.biz/dogmatcher/)
+
+Python服务器：flask
+To run flask:
+
+```
+cd /usr/jeff
+# created by virutalenv
+source dogmatcher/bin/activate
+python flask_test.py
+```
+
 ## Setups
 
 * Install Virtual Env
