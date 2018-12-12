@@ -26,7 +26,7 @@ Python服务器：flask
 To run flask:
 
 ```
-cd /usr/jeff
+cd /home/jeff
 # created by virutalenv
 source dogmatcher/bin/activate
 python flask_test.py
