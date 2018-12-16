@@ -114,7 +114,6 @@ def new_session():
     log.info('Dog Matcher skill new session started')
 
 
-# @app.route("/", methods=["POST", "GET"])
 @ask.launch
 def launch():
     # init state
@@ -147,6 +146,21 @@ def intent_numeric(slot_number):
     return answer_question(slot_number)
 
 
+@ask.intent('ans_home_type')
+def intent_ans_home_type(slot_home):
+    val = {
+        "apt": True,
+        "house": False
+    }[slot_home]
+
+    return answer_question(val)
+
+
+@ask.intent('ans_train_time_week')
+def intent_ans_train_time_week(slot_number):
+    return answer_question(slot_number)
+
+
 @ask.intent('ans_exp_level')
 def intent_ans_exp_level(slot_exp_level):
     val = {
@@ -168,24 +182,6 @@ def intent_ans_barking_level(slot_barking_level):
     val = int(slot_barking_level)
 
     return answer_question(val)
-
-
-@ask.intent('ans_home_type')
-def intent_ans_home_type(slot_home):
-    if slot_home == "house":
-        val = False
-    elif slot_home == "apartment":
-        val = True
-    else:
-        # todo: handle exception
-        val = True
-
-    return answer_question(val)
-
-
-@ask.intent('ans_train_time_week')
-def intent_ans_train_time_week(slot_number):
-    return answer_question(slot_number)
 
 
 @ask.intent('AMAZON.FallbackIntent')
