@@ -1,28 +1,15 @@
 # Backend for DogMatcher alexa skill
 
-"""
-todo: import text_generator.py
-"""
-
 import logging
 
 from flask import Flask
 from flask_ask import Ask, statement, question, session
 
+from text_generator import generate_utter
+
 app = Flask(__name__)
 ask = Ask(app, "/")
 log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
-
-ELICIT_QUESTIONS = {
-    0: "Welcome to the Dog Matcher skill, I will help you find your dream dog by asking some questions. Let's begin with one simple question. ",
-    2: "How much time can you put into training your dog every day?",
-    3: "What is your home like? Is it an apartment or a house with yard?",
-    4: "Do you want to look for dogs for apartment environment only?",
-    5: "From a scale of 1 to 10, how well can you stand for barking or noise made by dogs?",
-    6: "From a scale of 1 to 10, how well can you stand for shedding?",
-    7: "Do you live with kids under 10?",
-    8: "From a scale of 1 to 10, how active do you want the dog be?"
-}
 
 DIRECTION_QUESTIONS = {
     1: {
@@ -45,11 +32,42 @@ DIRECTION_QUESTIONS = {
     },
     5: 6,
     6: 7,
-    7: 8,
-    8: []
+    7: 8
 }
 
+QUESTION_PARAMETER = {
+    2: "trainTime",
+    4: "aptDog",
+    5: "barkLevel",
+    6: "shedLevel",
+    7: "haveKids",
+    8: "activityLevel"
+}
 
+DEFAULT_PARAMETER = {
+    # 1-5, 5 is the mostly easy trained
+    "trainTime": 5,
+    # if see apt dogs only
+    "aptDog": True,
+    # 1-5, 5 is likes to be vocal
+    "barkLevel": 5,
+    # 1-5, 5 is shredding regularly
+    "shedLevel": 5,
+    # True or False
+    "haveKids": True,
+    # 1-4, 4 is the laziest
+    "activityLevel": 1
+}
+
+ATTRIBUTE_STATE = "state"
+ATTRIBUTE_DOG_PARAMETER = "para"
+
+"""
+Getter/Setter
+"""
+
+
+# Session Attributes Getter/Setter
 def get_session_attr(attr):
     return session.attributes[attr]
 
@@ -58,18 +76,48 @@ def set_session_attr(key, value):
     session.attributes[key] = value
 
 
+# state Getter/Setter
 def set_state(state):
-    set_session_attr("state", state)
+    set_session_attr(ATTRIBUTE_STATE, state)
 
 
 def get_state():
-    return get_session_attr("state")
+    return get_session_attr(ATTRIBUTE_STATE)
 
 
-# todo: record user's answer
+# Dog Parameter Getter/Setter
+def set_dog_parameter(para, value):
+    parameters = get_session_attr(ATTRIBUTE_DOG_PARAMETER)
+    parameters[para] = value
+    set_session_attr(ATTRIBUTE_DOG_PARAMETER, parameters)
+
+
+def get_dog_parameter(para):
+    return get_session_attr(ATTRIBUTE_DOG_PARAMETER)[para]
+
+
+"""
+Handle user intent
+"""
+
+
+def user_update_dog_parameter(value):
+    # record answer
+    # first, find out which question is user answering
+    prev_state = get_state()
+
+    # second, find out what parameter does that question leads to
+    if prev_state not in QUESTION_PARAMETER:
+        return
+    parameter = QUESTION_PARAMETER[prev_state]
+
+    # finally, store new value to this parameter
+    set_dog_parameter(parameter, value)
 
 
 def user_answer_binary_question(ans):
+    user_update_dog_parameter(ans)
+
     # change state
     prev_state = get_state()
     directions = DIRECTION_QUESTIONS[prev_state]
@@ -89,6 +137,8 @@ def user_answer_binary_question(ans):
 
 
 def user_answer_numeric_question(num):
+    user_update_dog_parameter(num)
+
     # change state
     prev_state = get_state()
     next_state = DIRECTION_QUESTIONS[prev_state]
@@ -100,9 +150,9 @@ def user_answer_numeric_question(num):
     return question(speech_text).reprompt(speech_text)
 
 
-"""
+'''
 ASK Intent Entries
-"""
+'''
 
 
 @ask.on_session_started
@@ -113,9 +163,15 @@ def new_session():
 # @app.route("/", methods=["POST", "GET"])
 @ask.launch
 def launch():
+    # init state
     set_state(1)
 
-    speech_text = ELICIT_QUESTIONS[0] + generate_utter(TOPIC_EXP_ID)
+    # init parameters for later SQL query
+    set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
+
+    speech_text = "Welcome to the Dog Matcher skill, I will help you find your dream dog. Let's begin with a simple question. "
+
+    speech_text += generate_utter(1)
 
     reprompt = speech_text
 
