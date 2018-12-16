@@ -2,9 +2,9 @@
 
 import logging
 
-from flask import Flask
+from flask import Flask, make_response, jsonify
 from flask_ask import Ask, statement, question, session
-from result_generator import elaborate_result
+from card_generator import generate_card_json
 from text_generator import generate_utter
 from query import query
 from config import *
@@ -119,15 +119,10 @@ def query_base_on_user_para():
 
 def all_question_answered():
     # make query
-    result = query_base_on_user_para()
-
-    speech_text = ""
-
-    # present result
-    for dog in result:
-        speech_text += elaborate_result(dog)
-
-    return question(speech_text)
+    dogs = query_base_on_user_para()
+    reply = generate_card_json(dogs)
+    reply["sessionAttributes"] = session.attributes
+    return make_response(jsonify(reply))
 
 
 '''
