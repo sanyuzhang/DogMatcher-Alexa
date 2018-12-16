@@ -99,20 +99,23 @@ def answer_question(ans):
 
 
 def query_base_on_user_para():
+    def clamp(val_min, val_max, val):
+        return min(val_max, max(val_min, val))
+
     para = get_session_attr(ATTRIBUTE_DOG_PARAMETER)
 
     # int
-    train_time = int(para["trainTime"])
+    train_time = clamp(1, 1000, int(para["trainTime"]))
     # bool
     apt_dog = bool(para["aptDog"])
     # int
-    bark_level = int(para["barkLevel"])
+    bark_level = clamp(1, 5, int(para["barkLevel"]))
     # int
-    shed_level = int(para["shedLevel"])
+    shed_level = clamp(1, 5, int(para["shedLevel"]))
     # bool
     have_kids = bool(para["haveKids"])
     # int
-    activity_level = int(para["activityLevel"])
+    activity_level = clamp(1, 4, int(para["activityLevel"]))
 
     return query(train_time, apt_dog, bark_level, shed_level, have_kids, activity_level)
 
