@@ -7,7 +7,7 @@ from flask_ask import Ask, statement, question, session
 
 from text_generator import generate_utter
 from query import query
-from resultPresent import elaborate_result
+from result_present import elaborate_result
 from card_generator import generate_card_json
 from config import *
 
