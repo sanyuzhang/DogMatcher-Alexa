@@ -2,6 +2,7 @@ import random
 from utter_more import UtterMore
 
 
+TOPIC_UNKNOWN = -1
 TOPIC_UNKNOWN = 0
 TOPIC_EXP = 1
 TOPIC_TIME = 2
@@ -61,6 +62,11 @@ def generate_topic(topic_id):
             "On a scale one to four, with four being the highest, what's your activity level?",
             "Do you excercise very often?",
             "How often do you excercise?"
+        )
+    elif topic_id = TOPIC_WELCOME:
+        um = UtterMore(
+            "(Greetings, this is|Welcome to) Dog Matcher. I (will|can) help you find a dream (dog|puppy). Let's (start|begin) with a question.",
+            "(Hi|Hello), I'm Dog Matcher. (Let me|I will try my best to) find a dream (dog|puppy) for you. First, let's (start|begin) with a question.",
         )
     else:
         um = UtterMore(
