@@ -165,7 +165,6 @@ def intent_ans_barking_level(slot_barking_level):
     :param slot_barking_level: a str representation of integer from 1 to 5
     :type slot_barking_level: str
     """
-    print("barking level", slot_barking_level)
     val = int(slot_barking_level)
 
     return answer_question(val)
@@ -194,16 +193,6 @@ def intent_fallback():
     speech_text = "Fallback intent"
 
     return question(speech_text)
-
-
-@ask.intent('Clarification')
-def intent_clarification():
-    cur_state=get_state()
-    print(cur_state)
-    speech_text = generate_clarification(int(cur_state))
-
-    return question(speech_text)
-
 
 
 if __name__ == "__main__":
