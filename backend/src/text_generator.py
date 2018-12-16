@@ -17,7 +17,7 @@ TOPIC_CARD_SPEECH = 11
 TOPIC_CARD_TEXT = 12
 
 
-def generate_topic(topic_id):
+def generate_utter(topic_id):
     if topic_id == TOPIC_EXP:
         um = UtterMore(
             "(Now|Please) tell me, (what is|what's) your experience with dogs?",
@@ -76,15 +76,10 @@ def generate_topic(topic_id):
             "Say that one more time?"
         )
     um.iter_build_utterances()
-    return random.choice(um.utterances)
+    return random.choice(random.choice(um.utterances))
 
 
-def generate_utter(topic_id):
-    utter = generate_topic(topic_id)
-    return random.choice(utter)
-
-
-def generate_card_topic(topic_id, dog):
+def generate_card_utter(topic_id, dog):
     if dog:
         dog_name = dog[1]
         dog_desc = dog[2].strip()
@@ -104,12 +99,8 @@ def generate_card_topic(topic_id, dog):
             "It seems very difficult to find a match for you."
         )
     um.iter_build_utterances()
-    return random.choice(um.utterances)
+    return random.choice(random.choice(um.utterances))
 
-
-def generate_card_utter(topic_id, dog):
-    utter = generate_card_topic(topic_id, dog)
-    return random.choice(utter)
 
 def generate_clarification(topic_id):
     if topic_id == TOPIC_EXP:

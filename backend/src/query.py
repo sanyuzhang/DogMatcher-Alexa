@@ -1,12 +1,15 @@
+import os
 import sqlite3
 
 ############## get parameters ##############
 # get user's requirements
 # hadDog, trainTime etc..
 
+DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
+
 ############## filter dogs based on haveKids and aptDog ###############
 def query(trainTime = 5, aptDog = True,  barkLevel = 5, shedLevel = 5, haveKids = True, activityLevel = 1):
-    connection = sqlite3.connect("dogs.db3")
+    connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor()
 
     charactReq = [] # 1-10, smalleset, smartest, family dog, kids' friend etc.
