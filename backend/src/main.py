@@ -1,28 +1,15 @@
 # Backend for DogMatcher alexa skill
 
-"""
-todo: import text_generator.py
-"""
-
 import logging
 
 from flask import Flask
 from flask_ask import Ask, statement, question, session
 
+from text_generator import generate_utter
+
 app = Flask(__name__)
 ask = Ask(app, "/")
 log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
-
-ELICIT_QUESTIONS = {
-    0: "Welcome to the Dog Matcher skill, I will help you find your dream dog by asking some questions. Let's begin with one simple question. ",
-    2: "How much time can you put into training your dog every day?",
-    3: "What is your home like? Is it an apartment or a house with yard?",
-    4: "Do you want to look for dogs for apartment environment only?",
-    5: "From a scale of 1 to 10, how well can you stand for barking or noise made by dogs?",
-    6: "From a scale of 1 to 10, how well can you stand for shedding?",
-    7: "Do you live with kids under 10?",
-    8: "From a scale of 1 to 10, how active do you want the dog be?"
-}
 
 DIRECTION_QUESTIONS = {
     1: {
@@ -115,7 +102,9 @@ def new_session():
 def launch():
     set_state(1)
 
-    speech_text = ELICIT_QUESTIONS[0] + generate_utter(TOPIC_EXP_ID)
+    speech_text = "Welcome to the Dog Matcher skill, I will help you find your dream dog by asking some questions. Let's begin with one simple question. "
+
+    speech_text += generate_utter(1)
 
     reprompt = speech_text
 
