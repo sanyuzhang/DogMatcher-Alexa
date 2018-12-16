@@ -1,11 +1,11 @@
-import os
+from config import *
 import sqlite3
+
 
 ############## get parameters ##############
 # get user's requirements
 # hadDog, trainTime etc..
 
-DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
 
 ############## filter dogs based on haveKids and aptDog ###############
 def query(trainTime = 5, aptDog = True,  barkLevel = 5, shedLevel = 5, haveKids = True, activityLevel = 1):

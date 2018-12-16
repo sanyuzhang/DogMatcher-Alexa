@@ -3,6 +3,7 @@
 import random
 import sqlite3
 from utter_more import UtterMore
+from config import *
 
 activity_level = ["","needs a lot of excercise","needs regular excercise","is energetic","is calm"]
 barking_level = ["","barks when necessary","doesn't like barking very much","tends to bark sometimes","barks frequently","likes to be vocal"]
@@ -22,7 +23,7 @@ def elaborate_result(dog):
         output - String, desciption of the dog
     '''
     # get characteristic_id for the dog
-    connection = sqlite3.connect("dogs.db3") 
+    connection = sqlite3.connect(DB_PATH)
     cursor = connection.cursor() 
     cursor.execute("SELECT characteristic_id FROM dogs_characteristics WHERE dog_id \
                     ==" + str(dog[0]))

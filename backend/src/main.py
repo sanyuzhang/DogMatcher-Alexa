@@ -4,11 +4,9 @@ import logging
 
 from flask import Flask
 from flask_ask import Ask, statement, question, session
-
+from result_generator import elaborate_result
 from text_generator import generate_utter
 from query import query
-from result_generator import elaborate_result
-from card_generator import generate_card_json
 from config import *
 
 app = Flask(__name__)

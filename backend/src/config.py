@@ -1,3 +1,5 @@
+import os
+
 END_OF_QUESTION = 8
 
 DIRECTION_QUESTIONS = {
@@ -50,3 +52,5 @@ DEFAULT_PARAMETER = {
 
 ATTRIBUTE_STATE = "state"
 ATTRIBUTE_DOG_PARAMETER = "para"
+
+DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
