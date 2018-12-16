@@ -94,7 +94,7 @@ def parse_2_store(dog_name, html, url):
         soup = BeautifulSoup(html, 'html.parser')
 
         desc_htmls = soup.find_all('div', class_ = DESC_HTML_CLASS)
-        desc = desc_htmls[0].get_text()
+        desc = (desc_htmls[0].get_text()).strip()
 
         detail_htmls = soup.find_all('span', class_ = DETAILS_HTML_CLASS)
         for i in range(len(detail_htmls)):
