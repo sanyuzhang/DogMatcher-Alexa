@@ -75,3 +75,12 @@ CREATE TABLE "dogs" ( `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE, `n
 CREATE TABLE `dogs_temperaments` ( `dog_id` INTEGER NOT NULL, `temperament_id` INTEGER NOT NULL, PRIMARY KEY(`dog_id`,`temperament_id`) );
 
 CREATE TABLE `dogs_characteristics` ( `dog_id` INTEGER NOT NULL, `characteristic_id` INTEGER NOT NULL, PRIMARY KEY(`dog_id`,`characteristic_id`) );
+
+
+-- Post processing
+
+-- UPDATE `dogs` SET weight_min = 0 where weight_min > 99999;
+
+-- UPDATE `dogs` SET height_min = 0 where height_min > 99999;
+
+-- UPDATE `dogs` SET life_expectancy_min = 0 where life_expectancy_min > 99999;
