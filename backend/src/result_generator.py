@@ -4,6 +4,7 @@ import sqlite3
 from utter_more import UtterMore
 from config import *
 
+from dog import *
 
 activity_level = ["","needs a lot of excercise","needs regular excercise","is energetic","is calm"]
 barking_level = ["","barks when necessary","doesn't like barking very much","tends to bark sometimes","barks frequently","likes to be vocal"]
@@ -97,11 +98,138 @@ def elaborate_result(dog):
     )
     return randomUtter(conf) + " " + randomUtter(des) + " " + randomUtter(com)
 
+def compareDogsSame(dog1, dog2, att):
+    attValue = getattr(dog1, att) - 1
+    ut = UtterMore(
+        dog1.name + " and " + dog2.name + " (have the same " + ATT_STR[att][0] + "|" + ATT_STR[att][1] + "). They " + ATT_UNIT[att][attValue],
+        
+        dog1.name + " " + ATT_STR[att][2] + ". They " + ATT_UNIT[att][attValue],
+    )
+    return randomUtter(ut)
+
+def compareDogsAnd(dog1, dog2, att):
+    attValues = [getattr(dog1, att) - 1, getattr(dog2, att) - 1]
+    ut = UtterMore(
+        dog1.name + " " + ATT_UNIT[att][attValues[0]] + ", (while|and) " + 
+        dog2.name + " " + ATT_UNIT[att][attValues[1]] + ".",
+    )
+    return randomUtter(ut)
+
+def compareDogsOr(names, atts, unit, words):
+    if atts[0] > atts[1]:
+        # Swap
+        atts[0], atts[1] = atts[1], atts[0]
+        names[0], names[1] = names[1], names[0]
+    
+    ut = UtterMore(
+        names[1] + " is " + str(atts[1]) + " " + unit + ". " + 
+        names[0] + " is " + str(abs(atts[1] - atts[0])) + " " + unit + " " +
+        words[0] + " than it.",
+
+        names[1] + " is " + str(atts[1]) + " " + unit + ", while " + 
+        names[0] + " is " + words[0] + " than it, which is " + str(atts[0]) + " " + unit,
+        
+        names[0] + " is " + str(atts[0]) + " " + unit + ". " + 
+        names[1] + " is " + str(abs(atts[1] - atts[0])) + " " + unit + " " +
+        words[1] + " than it.",
+
+        names[0] + " is " + str(atts[0]) + " " + unit + ", while " + 
+        names[1] + " is " + words[1] + " than it, which is " + str(atts[1]) + " " + unit,
+    )
+    return randomUtter(ut)
+    
+
+
+def compareDogs(dog1, dog2):
+    res = ""
+    # att = 'name'
+    # names = [dog1[att].replace("Dog", ""), dog2[att].replace("Dog", "")]
+    # att = 'weight_min'
+    # weight_min = [dog1[att], dog2[att]]
+
+    # return compareDogsOr(names, weight_min, "pound", ["lighter", "heavier"])
+
+    # Get overall difference
+    diff = GetDogsDiffCategory(dog1, dog2)
+    if diff == 0:
+        ut = UtterMore(
+            dog1.name + " is very similar to " + dog2.name,
+        )
+    elif diff == 1:
+        ut = UtterMore(
+            dog1.name + " is similar to " + dog2.name,
+        )
+    elif diff == 2:
+        ut = UtterMore(
+            dog1.name + " is somewhat different to " + dog2.name,
+        )
+    else:
+        ut = UtterMore(
+            dog1.name + " is very different to " + dog2.name,
+        )
+    res += randomUtter(ut)
+    
+    # Compare each attribute
+    # dogAtts = list(dog1.__dict__.keys())
+    # dogAtts.remove('name')
+    dogAtts = ['size', 'actLvl', 'barkLvl', 'shed']
+    # Group attributes by difference
+    sameAtts = []
+    diffAtts = []
+    for att in dogAtts:
+        if getattr(dog1, att) == getattr(dog2, att):
+            sameAtts.append(att)
+        else:
+            diffAtts.append(att)
+    
+    for att in sameAtts:
+        res += compareDogsSame(dog1, dog2, att)
+    
+    for att in diffAtts:
+        res += compareDogsAnd(dog1, dog2, att)
+
+    return res
+
+def GetDogsDiffDistribution(dogs):
+    dogGroups = {"very similar":0, "similar":0, "different":0, "very different":0}
+    dogNum = len(dogs)
+    for i in range(dogNum):
+        for j in range(i + 1, dogNum):
+            diff = GetDogsDiffCategory(dogs[i], dogs[j])
+            if diff == 0:
+                dogGroups["very similar"] += 1
+            elif diff == 1:
+                dogGroups["similar"] += 1
+            elif diff == 2:
+                dogGroups["different"] += 1
+            else:
+                dogGroups["very different"] += 1
+    print(dogGroups)
 
 if __name__ == '__main__':
-    # test
-    connection = sqlite3.connect(DB_PATH) 
-    cursor = connection.cursor() 
+    # Setup database access
+    connection = sqlite3.connect("dogs.db3")
+    connection.row_factory = sqlite3.Row
+    cursor = connection.cursor()
+    # Get column names
+    # cursor.execute("SELECT * FROM dogs")
+    # colNames = cursor.fetchone().keys()
+    
+    # find dogs
+    # cursor.execute("SELECT * FROM dogs WHERE id == 5 or id == 7")
     cursor.execute("SELECT * FROM dogs")
-    dogs = cursor.fetchall()
-    print(elaborate_result(dogs))
+    rows = cursor.fetchall()
+    
+    #print(elaborate_result(dog[0]))
+    dogs = []
+    for row in rows:
+        dogs.append(Dog(row))
+        #print(dogs[-1])
+
+    GetDogsDiffDistribution(dogs)
+    
+    dogNum = len(dogs)
+    for i in range(10):
+        ids = random.sample(range(dogNum), 2)
+        print(compareDogs(dogs[ids[0]], dogs[ids[1]]))
+    
