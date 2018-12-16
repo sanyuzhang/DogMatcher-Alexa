@@ -32,11 +32,42 @@ DIRECTION_QUESTIONS = {
     },
     5: 6,
     6: 7,
-    7: 8,
-    8: []
+    7: 8
 }
 
+QUESTION_PARAMETER = {
+    2: "trainTime",
+    4: "aptDog",
+    5: "barkLevel",
+    6: "shedLevel",
+    7: "haveKids",
+    8: "activityLevel"
+}
 
+DEFAULT_PARAMETER = {
+    # 1-5, 5 is the mostly easy trained
+    "trainTime": 5,
+    # if see apt dogs only
+    "aptDog": True,
+    # 1-5, 5 is likes to be vocal
+    "barkLevel": 5,
+    # 1-5, 5 is shredding regularly
+    "shedLevel": 5,
+    # True or False
+    "haveKids": True,
+    # 1-4, 4 is the laziest
+    "activityLevel": 1
+}
+
+ATTRIBUTE_STATE = "state"
+ATTRIBUTE_DOG_PARAMETER = "para"
+
+"""
+Getter/Setter
+"""
+
+
+# Session Attributes Getter/Setter
 def get_session_attr(attr):
     return session.attributes[attr]
 
@@ -45,18 +76,48 @@ def set_session_attr(key, value):
     session.attributes[key] = value
 
 
+# state Getter/Setter
 def set_state(state):
-    set_session_attr("state", state)
+    set_session_attr(ATTRIBUTE_STATE, state)
 
 
 def get_state():
-    return get_session_attr("state")
+    return get_session_attr(ATTRIBUTE_STATE)
 
 
-# todo: record user's answer
+# Dog Parameter Getter/Setter
+def set_dog_parameter(para, value):
+    parameters = get_session_attr(ATTRIBUTE_DOG_PARAMETER)
+    parameters[para] = value
+    set_session_attr(ATTRIBUTE_DOG_PARAMETER, parameters)
+
+
+def get_dog_parameter(para):
+    return get_session_attr(ATTRIBUTE_DOG_PARAMETER)[para]
+
+
+"""
+Handle user intent
+"""
+
+
+def user_update_dog_parameter(value):
+    # record answer
+    # first, find out which question is user answering
+    prev_state = get_state()
+
+    # second, find out what parameter does that question leads to
+    if prev_state not in QUESTION_PARAMETER:
+        return
+    parameter = QUESTION_PARAMETER[prev_state]
+
+    # finally, store new value to this parameter
+    set_dog_parameter(parameter, value)
 
 
 def user_answer_binary_question(ans):
+    user_update_dog_parameter(ans)
+
     # change state
     prev_state = get_state()
     directions = DIRECTION_QUESTIONS[prev_state]
@@ -76,6 +137,8 @@ def user_answer_binary_question(ans):
 
 
 def user_answer_numeric_question(num):
+    user_update_dog_parameter(num)
+
     # change state
     prev_state = get_state()
     next_state = DIRECTION_QUESTIONS[prev_state]
@@ -87,9 +150,9 @@ def user_answer_numeric_question(num):
     return question(speech_text).reprompt(speech_text)
 
 
-"""
+'''
 ASK Intent Entries
-"""
+'''
 
 
 @ask.on_session_started
@@ -100,9 +163,13 @@ def new_session():
 # @app.route("/", methods=["POST", "GET"])
 @ask.launch
 def launch():
+    # init state
     set_state(1)
 
-    speech_text = "Welcome to the Dog Matcher skill, I will help you find your dream dog by asking some questions. Let's begin with one simple question. "
+    # init parameters for later SQL query
+    set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
+
+    speech_text = "Welcome to the Dog Matcher skill, I will help you find your dream dog. Let's begin with a simple question. "
 
     speech_text += generate_utter(1)
 
