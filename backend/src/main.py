@@ -123,7 +123,7 @@ def launch():
     # init parameters for later SQL query
     set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
 
-    speech_text = "Welcome to the Dog Matcher skill, I will help you find your dream dog. Let's begin with a simple question. "
+    speech_text = generate_utter(0)
 
     speech_text += generate_utter(1)
 
