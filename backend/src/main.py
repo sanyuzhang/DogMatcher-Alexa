@@ -6,6 +6,9 @@ from flask import Flask
 from flask_ask import Ask, statement, question, session
 
 from text_generator import generate_utter
+from query import query
+from resultPresent import elaborate_result
+from card_generator import generate_card_json
 from config import *
 
 app = Flask(__name__)
@@ -97,11 +100,37 @@ def answer_question(ans):
     return question(speech_text).reprompt(speech_text)
 
 
+def query_base_on_user_para():
+    para = get_session_attr(ATTRIBUTE_DOG_PARAMETER)
+
+    # int
+    train_time = int(para["trainTime"])
+    # bool
+    apt_dog = para["aptDog"]
+    # int
+    bark_level = int(para["barkLevel"])
+    # int
+    shed_level = int(para["shedLevel"])
+    # bool
+    have_kids = para["haveKids"]
+    # int
+    activity_level = int(para["activityLevel"])
+
+    return query(train_time, apt_dog, bark_level, shed_level, have_kids, activity_level)
+
+
 def all_question_answered():
     # todo:
     # make query
+    result = query_base_on_user_para()
+
+    speech_text = ""
+
     # present result
-    pass
+    for dog in result:
+        speech_text += elaborate_result(dog)
+
+    return question(speech_text)
 
 
 '''
@@ -180,6 +209,16 @@ def intent_ans_barking_level(slot_barking_level):
     :type slot_barking_level: str
     """
     val = int(slot_barking_level)
+
+    return answer_question(val)
+
+
+@ask.intent('ans_shed_level')
+def intent_ans_shed_level(slot_shed_level):
+    """
+    User answers Shedding level
+    """
+    val = int(slot_shed_level)
 
     return answer_question(val)
 
