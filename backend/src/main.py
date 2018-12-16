@@ -7,7 +7,7 @@ from flask_ask import Ask, statement, question, session
 
 from text_generator import generate_utter
 from query import query
-from resultPresent import elaborate_result
+from result_generator import elaborate_result
 from card_generator import generate_card_json
 from config import *
 
@@ -106,13 +106,13 @@ def query_base_on_user_para():
     # int
     train_time = int(para["trainTime"])
     # bool
-    apt_dog = para["aptDog"]
+    apt_dog = bool(para["aptDog"])
     # int
     bark_level = int(para["barkLevel"])
     # int
     shed_level = int(para["shedLevel"])
     # bool
-    have_kids = para["haveKids"]
+    have_kids = bool(para["haveKids"])
     # int
     activity_level = int(para["activityLevel"])
 
@@ -120,7 +120,6 @@ def query_base_on_user_para():
 
 
 def all_question_answered():
-    # todo:
     # make query
     result = query_base_on_user_para()
 
@@ -152,7 +151,6 @@ def launch():
     set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
 
     speech_text = generate_utter(0)
-
     speech_text += generate_utter(1)
 
     reprompt = speech_text
