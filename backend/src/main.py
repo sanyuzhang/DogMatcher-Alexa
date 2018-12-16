@@ -6,61 +6,11 @@ from flask import Flask
 from flask_ask import Ask, statement, question, session
 
 from text_generator import generate_utter
+from config import *
 
 app = Flask(__name__)
 ask = Ask(app, "/")
 log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)
-
-DIRECTION_QUESTIONS = {
-    1: {
-        # Have experience with dogs
-        True: 2,
-        # No previous experience
-        False: 3
-    },
-    2: 3,
-    3: {
-        # Home is apartment
-        True: 4,
-        # Home is house with yard
-        False: 5
-    },
-    4: {
-        # Only dogs for apt
-        True: 7,
-        False: 5
-    },
-    5: 6,
-    6: 7,
-    7: 8
-}
-
-QUESTION_PARAMETER = {
-    2: "trainTime",
-    4: "aptDog",
-    5: "barkLevel",
-    6: "shedLevel",
-    7: "haveKids",
-    8: "activityLevel"
-}
-
-DEFAULT_PARAMETER = {
-    # 1-5, 5 is the mostly easy trained
-    "trainTime": 5,
-    # if see apt dogs only
-    "aptDog": True,
-    # 1-5, 5 is likes to be vocal
-    "barkLevel": 5,
-    # 1-5, 5 is shredding regularly
-    "shedLevel": 5,
-    # True or False
-    "haveKids": True,
-    # 1-4, 4 is the laziest
-    "activityLevel": 1
-}
-
-ATTRIBUTE_STATE = "state"
-ATTRIBUTE_DOG_PARAMETER = "para"
 
 """
 Getter/Setter
@@ -101,7 +51,7 @@ Handle user intent
 """
 
 
-def user_update_dog_parameter(value):
+def update_dog_parameter(value):
     # record answer
     # first, find out which question is user answering
     prev_state = get_state()
@@ -115,9 +65,7 @@ def user_update_dog_parameter(value):
     set_dog_parameter(parameter, value)
 
 
-def user_answer_binary_question(ans):
-    user_update_dog_parameter(ans)
-
+def advance_state(ans):
     # change state
     prev_state = get_state()
     directions = DIRECTION_QUESTIONS[prev_state]
@@ -129,25 +77,31 @@ def user_answer_binary_question(ans):
         next_state = directions[ans]
 
     set_state(next_state)
-
-    # get next question
-    speech_text = generate_utter(get_state())
-
-    return question(speech_text).reprompt(speech_text)
+    return get_state()
 
 
-def user_answer_numeric_question(num):
-    user_update_dog_parameter(num)
+def answer_question(ans):
+    # store user answer
+    update_dog_parameter(ans)
+
+    # check if end of question
+    if get_state() == END_OF_QUESTION:
+        return all_question_answered()
 
     # change state
-    prev_state = get_state()
-    next_state = DIRECTION_QUESTIONS[prev_state]
-    set_state(next_state)
+    advance_state(ans)
 
     # get next question
     speech_text = generate_utter(get_state())
 
     return question(speech_text).reprompt(speech_text)
+
+
+def all_question_answered():
+    # todo:
+    # make query
+    # present result
+    pass
 
 
 '''
@@ -178,19 +132,60 @@ def launch():
     return question(speech_text).reprompt(reprompt)
 
 
-@ask.intent('user_confirm')
-def intent_user_confirm():
-    return user_answer_binary_question(True)
+@ask.intent('confirm')
+def intent_confirm():
+    return answer_question(True)
 
 
-@ask.intent('user_deny')
-def intent_user_deny():
-    return user_answer_binary_question(False)
+@ask.intent('deny')
+def intent_deny():
+    return answer_question(False)
 
 
-@ask.intent('user_numeric')
-def intent_user_numeric(number):
-    return user_answer_numeric_question(number)
+@ask.intent('numeric')
+def intent_numeric(slot_number):
+    return answer_question(slot_number)
+
+
+@ask.intent('ans_exp_level')
+def intent_ans_exp_level(slot_exp_level):
+    val = {
+        "yes": True,
+        "no": False
+    }[slot_exp_level]
+
+    return answer_question(val)
+
+
+@ask.intent('ans_barking_level')
+def intent_ans_barking_level(slot_barking_level):
+    """
+    User answers barking level
+
+    :param slot_barking_level: a str representation of integer from 1 to 5
+    :type slot_barking_level: str
+    """
+    val = int(slot_barking_level)
+
+    return answer_question(val)
+
+
+@ask.intent('ans_home_type')
+def intent_ans_home_type(slot_home):
+    if slot_home == "house":
+        val = False
+    elif slot_home == "apartment":
+        val = True
+    else:
+        # todo: handle exception
+        val = True
+
+    return answer_question(val)
+
+
+@ask.intent('ans_train_time_week')
+def intent_ans_train_time_week(slot_number):
+    return answer_question(slot_number)
 
 
 @ask.intent('AMAZON.FallbackIntent')
