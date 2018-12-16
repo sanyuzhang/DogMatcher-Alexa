@@ -162,7 +162,7 @@ def parse_2_store(dog_name, html, url):
 
         dog_insert_data = (
             dog_name, desc, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max, 
-            image, dog_group_id, activity_level_id, barking_level_id, shedding_id, coat_type_id, size_id, trainability_id, popularity, url
+            image, dog_group_id, activity_level_id, barking_level_id, coat_type_id, shedding_id, size_id, trainability_id, popularity, url
         )
         dog_id = db_insert_single('dogs', dog_insert_cols, dog_insert_data)
 
@@ -209,8 +209,8 @@ IMAGE_HTML_CLASS = 'media-wrap__image'
 DESC_HTML_CLASS = 'breed-hero__footer'
 LINE_SEPARATOR, COMMA_SEPARATOR, BAR_SEPARATOR = '\n', ',', '-'
 DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../dogs.db3'
-DOGS_FILE = os.path.dirname(os.path.realpath(__file__)) + 'dogs.txt'
-ERROR_LOG = os.path.dirname(os.path.realpath(__file__)) + 'error_dogs.txt'
+DOGS_FILE = os.path.dirname(os.path.realpath(__file__)) + '/dogs.txt'
+ERROR_LOG = os.path.dirname(os.path.realpath(__file__)) + '/error_dogs.txt'
 HANDLING_ERROR = False
 
 
