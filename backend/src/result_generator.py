@@ -38,7 +38,7 @@ def elaborate_result(dog):
     )
     des = UtterMore(
         dog[2] + "He stands between " + str(dog[3]) + " and " + str(dog[4]) + " inches, and weights maximum " +\
-        str(dog[6]) + " pounds. The " + dog[1] + " " + dog[17] + " amoung the most popular dogs breeds. " +\
+        str(dog[6]) + " pounds. The " + dog[1] + " " + dog[17] + " amoung the most popular American dogs breeds. " +\
         "He is one of the " + character[charactId[0]] + " with a " + coat_type[dog[13]] + " haircoat and he sheds " + shed_level[dog[14]] +\
         ". " + dog[1] + " " + activity_level[dog[11]] + ", and " + trainability[dog[16]] + " when trainning."
     )
