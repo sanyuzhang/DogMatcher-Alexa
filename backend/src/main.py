@@ -170,6 +170,10 @@ def intent_deny():
 
 @ask.intent('numeric')
 def intent_numeric(slot_number):
+    # For the activity level, 1 is the most active and 4 is the most inactive
+    if get_state() == 8:
+        slot_number = 5 - slot_number
+
     return answer_question(slot_number)
 
 
@@ -217,6 +221,16 @@ def intent_ans_shed_level(slot_shed_level):
     User answers Shedding level
     """
     val = int(slot_shed_level)
+
+    return answer_question(val)
+
+
+@ask.intent('ans_activity_level')
+def intent_ans_activity_level(slot_activity_level):
+    """
+    User answers activity level
+    """
+    val = int(slot_activity_level)
 
     return answer_question(val)
 
