@@ -4,6 +4,7 @@ import random
 import sqlite3
 from text_generator import *
 from result_generator import elaborate_result
+from config import *
 
 
 def generate_card_json(dogs):
@@ -40,13 +41,11 @@ def generate_card_json(dogs):
         reply["response"]["card"]["image"]["smallImageUrl"] = dog_image
         reply["response"]["card"]["image"]["largeImageUrl"] = dog_image
 
-    print(reply)
     return reply
 
 
 if __name__ == '__main__':
     # test
-    from config import DB_PATH
     conn = sqlite3.connect(DB_PATH, isolation_level=None, check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM %s" % ('dogs'))

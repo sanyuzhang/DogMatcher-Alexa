@@ -32,10 +32,10 @@ def elaborate_result(dog):
     dog_height_max = dog[4]
     dog_weight_min = dog[5]
     dog_weight_max = dog[6]
-    dog_activity = dog[11]
-    dog_coat = dog[13]
-    dog_shed = dog[14]
-    dog_train = dog[16]
+    dog_activity = activity_level[dog[11]]
+    dog_coat = coat_type[dog[13]]
+    dog_shed = shed_level[dog[14]]
+    dog_train = trainability[dog[16]]
     dog_popularity = dog[17]
 
     connection = sqlite3.connect(DB_PATH)
@@ -99,8 +99,9 @@ def elaborate_result(dog):
 
 
 if __name__ == '__main__':
-    connection = sqlite3.connect("dogs.db3") 
+    # test
+    connection = sqlite3.connect(DB_PATH) 
     cursor = connection.cursor() 
     cursor.execute("SELECT * FROM dogs")
-    dog = cursor.fetchall()
-    print(elaborate_result(dog))
+    dogs = cursor.fetchall()
+    print(elaborate_result(dogs))
