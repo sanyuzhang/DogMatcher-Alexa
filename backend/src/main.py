@@ -147,20 +147,28 @@ def intent_numeric(slot_number):
     return answer_question(slot_number)
 
 
-@ask.intent('ans_exp_negative')
-def intent_ans_exp_negative():
-    return answer_question(False)
-
-
-@ask.intent('ans_exp_positive')
-def intent_ans_exp_positive():
-    return answer_question(True)
-
-
 @ask.intent('ans_exp_level')
 def intent_ans_exp_level(slot_exp_level):
-    return statement(slot_exp_level)
-    # return answer_question(True)
+    val = {
+        "yes": True,
+        "no": False
+    }[slot_exp_level]
+
+    return answer_question(val)
+
+
+@ask.intent('ans_barking_level')
+def intent_ans_barking_level(slot_barking_level):
+    """
+    User answers barking level
+
+    :param slot_barking_level: a str representation of integer from 1 to 5
+    :type slot_barking_level: str
+    """
+    print("barking level", slot_barking_level)
+    val = int(slot_barking_level)
+
+    return answer_question(val)
 
 
 @ask.intent('ans_home_type')
@@ -186,6 +194,16 @@ def intent_fallback():
     speech_text = "Fallback intent"
 
     return question(speech_text)
+
+
+@ask.intent('Clarification')
+def intent_clarification():
+    cur_state=get_state()
+    print(cur_state)
+    speech_text = generate_clarification(int(cur_state))
+
+    return question(speech_text)
+
 
 
 if __name__ == "__main__":
