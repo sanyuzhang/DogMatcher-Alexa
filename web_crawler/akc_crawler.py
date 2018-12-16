@@ -87,8 +87,8 @@ def parse_2_store(dog_name, html, url):
     try:
         # Initialization
         dog_insert_cols = "name, desc, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max, image, dog_group, activity_level, barking_level, coat_type, shedding, size, trainability, popularity, url"
-        popularity, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max = -1, sys.maxsize, -1, sys.maxsize, -1, sys.maxsize, -1
-        dog_group_id, activity_level_id, barking_level_id, coat_type_id, shedding_id, trainability_id, size_id = -1, -1, -1, -1, -1, -1, -1
+        popularity, height_min, height_max, weight_min, weight_max, life_expectancy_min, life_expectancy_max = 0, sys.maxsize, 0, sys.maxsize, 0, sys.maxsize, 0
+        dog_group_id, activity_level_id, barking_level_id, coat_type_id, shedding_id, trainability_id, size_id = 0, 0, 0, 0, 0, 0, 0
         characteristic_ids, temperament_ids, image = [], [], ''
 
         soup = BeautifulSoup(html, 'html.parser')
