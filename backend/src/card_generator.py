@@ -37,7 +37,6 @@ def generate_card_json(dog):
         reply["response"]["card"]["text"] = tg.generate_card_utter(tg.TOPIC_CARD_TEXT, dog)
         reply["response"]["card"]["image"]["smallImageUrl"] = dog_image
         reply["response"]["card"]["image"]["largeImageUrl"] = dog_image
-    print(reply)
     return reply
 
 
