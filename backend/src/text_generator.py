@@ -105,6 +105,48 @@ def generate_card_utter(topic_id, dog):
     utter = generate_card_topic(topic_id, dog)
     return random.choice(utter)
 
+def generate_clarification(topic_id):
+    if topic_id == TOPIC_EXP:
+        um = UtterMore(
+            "To recommend you human friendly dog.",
+        )
+    elif topic_id == TOPIC_TIME:
+        um = UtterMore(
+            "If you have little time, I will recommend you the easy trained dog.",
+        )
+    elif topic_id == TOPIC_HOME:
+        um = UtterMore(
+            "Some dog need more space.",
+        )
+    elif topic_id == TOPIC_APT:
+        um = UtterMore(
+            "To recommend the suitable dog.",
+        )
+    elif topic_id == TOPIC_NOISE:
+        um = UtterMore(
+            "So that the barking sound does not bother you.",
+        )
+    elif topic_id == TOPIC_SHED:
+        um = UtterMore(
+            "So that I can recommend the dog shedding at your tolorance level.",
+        )
+    elif topic_id == TOPIC_KIDS:
+        um = UtterMore(
+            "If you have kids, I will recommend you kids-friendly dog.",
+        )
+    elif topic_id == TOPIC_ACT:
+        um = UtterMore(
+            "So that I can find the dog that suits your activity level best.",
+        )
+    else:
+        um = UtterMore(
+            "Sorry, I cannot understand.",
+            "Sorry, I did not catch that.",
+            "Sorry, can you speak it again?"
+        )
+    um.iter_build_utterances()
+    return random.choice(random.choice(um.utterances))
+
 
 if __name__ == '__main__':
     for i in range(0, 9):
