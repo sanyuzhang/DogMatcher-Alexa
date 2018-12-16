@@ -67,7 +67,7 @@ def elaborate_result(dog):
     elif dog_weight_max:
         content += " And he weights maximum %s pounds." % (dog_weight_max)
     if dog_popularity:
-        content += " %s %s amongst the most popular dogs breeds." % (dog_name, dog_popularity)
+        content += " %s %s amongst the most popular American dogs breeds." % (dog_name, dog_popularity)
     if charactId:
         dog_charac = character[charactId[0]]
     else:
