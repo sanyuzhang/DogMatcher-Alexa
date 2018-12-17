@@ -124,7 +124,7 @@ def query_base_on_user_para():
 def all_question_answered():
     # make query
     dogs = query_base_on_user_para()
-    reply = generate_card_json(dogs)
+    reply = generate_card_json(dogs, top_n=5)
     reply["sessionAttributes"] = session.attributes
     return make_response(jsonify(reply))
 
