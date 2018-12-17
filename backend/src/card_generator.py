@@ -33,7 +33,7 @@ def generate_detail_json(dog):
         reply["response"]["card"]["title"] = dog[1]
         reply["response"]["card"]["text"] = content
 
-    print(reply)
+    # print(reply)
     return reply
 
 
