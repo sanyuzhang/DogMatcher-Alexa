@@ -7,6 +7,7 @@ from flask_ask import Ask, question, session
 from text_generator import generate_clarification, generate_utter
 from result_generator import elaborate_result
 from result_generator import compareDogRows
+from card_generator import generate_detail_json
 from card_generator import generate_card_json
 from query import query
 from config import *
@@ -276,23 +277,24 @@ def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
 
 @ask.intent('info_request')
 def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
-    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh","eighth","ninth","tenth"]
+    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"]
     result = query_base_on_user_para()
 
-    speech_text = ""
+    target_dog = None
 
     if slot_breed is not None:
         new_result = [idog for idog in result if idog[1] == slot_breed]
-        speech_text = generate_detail_json(new_result[0])
+        target_dog = new_result[0]
     elif slot_ordinal is None:
-        speech_text = generate_detail_json(result[0])
+        target_dog = result[0]
     elif slot_ordinal is not None:
         if ORDINALS.index(slot_ordinal) >= len(result):
-            speech_text = generate_detail_json(result[-1])
+            target_dog = result[-1]
         else:
-            speech_text = generate_detail_json(result[ORDINALS.index(slot_ordinal)])
+            target_dog = result[ORDINALS.index(slot_ordinal)]
 
-    return question(speech_text)
+    reply = generate_detail_json(target_dog)
+    return make_response(jsonify(reply))
 
 
 if __name__ == "__main__":
