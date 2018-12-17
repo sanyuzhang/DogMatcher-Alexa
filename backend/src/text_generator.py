@@ -43,8 +43,8 @@ def generate_utter(topic_id, after_clarification=False):
         )
     elif topic_id == TOPIC_TIME:
         um = UtterMore(
-            "%s How many hours (per|every) week (can|could) you (put into|spend on) (trainning|playing with) your dog? " % (prefix),
-            "%s In general, what's the hours per week that you (put into|spend on) (trainning|playing with) your dog? " % (prefix),
+            "%s How many hours (per|every) week (can|could) you (put into|spend on) (training|playing with) your dog? " % (prefix),
+            "%s In general, what's the hours per week that you (put into|spend on) (training|playing with) your dog? " % (prefix),
         )
     elif topic_id == TOPIC_HOME:
         um = UtterMore(
