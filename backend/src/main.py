@@ -257,15 +257,15 @@ def intent_clarification():
     return question(speech_text)
 
 @ask.intent('info_request')
-def intent_info_request(slot_breed = '',slot_pronoun = '', slot_ordinal = ''):
-    ORDINALS = ["first", "second", "third", "forth", "fifth","sixth","seventh"]
+def intent_info_request(slot_breed = None,slot_pronoun = None, slot_ordinal = None):
+    ORDINALS = ["first", "second", "third", "forth", "fifth","sixth","seventh","eighth","ninth","tenth"]
     result = query_base_on_user_para()
-    if slot_breed !='':
+    if len(result) == 1:
+        speech_text = elaborate_result(result[0])
+    elif slot_breed != None:
         new_result=[idog for idog in result if idog[1] == slot_breed]
         speech_text = elaborate_result(new_result[0])
-    elif slot_ordinal == '':
-        speech_text = elaborate_result(result[0])
-    elif slot_ordinal != '' :
+    elif slot_ordinal != None :
         if ORDINALS.index(slot_ordinal) >= len(result):
             speech_text = "There are not so many results.Please say again"
         else:
