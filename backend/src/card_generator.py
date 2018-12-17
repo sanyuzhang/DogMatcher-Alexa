@@ -8,6 +8,8 @@ from config import *
 
 
 def generate_detail_json(dog):
+    # More detail information about one dog
+
     # Default reply
     reply = {
         "version": "1.0",
@@ -20,7 +22,8 @@ def generate_detail_json(dog):
                 "type": "Standard",
                 "title": "Dog Matcher",
                 "text": generate_card_utter(TOPIC_UNKNOWN, None)
-            }
+            },
+            "shouldEndSession": False 
         }
     }
 
@@ -35,6 +38,8 @@ def generate_detail_json(dog):
 
 
 def generate_card_json(dogs, top_n=5):
+    # List all dogs we have found for the users
+
     # Default reply
     reply = {
         "version": "1.0",
@@ -47,7 +52,8 @@ def generate_card_json(dogs, top_n=5):
                 "type": "Standard",
                 "title": "Dog Matcher",
                 "text": generate_card_utter(TOPIC_UNKNOWN, None)
-            }
+            },
+            "shouldEndSession": False
         }
     }
 
