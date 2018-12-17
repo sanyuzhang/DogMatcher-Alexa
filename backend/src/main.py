@@ -4,9 +4,9 @@ import logging
 
 from flask import Flask, make_response, jsonify
 from flask_ask import Ask, question, session
-from text_generator import generate_clarification
+from text_generator import generate_clarification, generate_utter
+from result_generator import elaborate_result
 from card_generator import generate_card_json
-from text_generator import generate_utter
 from query import query
 from config import *
 
@@ -234,21 +234,22 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    #speech_text = "Fallback intent"
+    # speech_text = "Fallback intent"
 
-    #return question(speech_text)
+    # return question(speech_text)
     # init state
     set_state(1)
 
     # init parameters for later SQL query
     set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
 
-    #speech_text = generate_utter(0)
-    speech_text += generate_utter(1)
+    # speech_text = generate_utter(0)
+    speech_text = generate_utter(1)
 
     reprompt = speech_text
 
     return question(speech_text).reprompt(reprompt)
+
 
 @ask.intent('clarification')
 def intent_clarification():
@@ -256,9 +257,10 @@ def intent_clarification():
 
     return question(speech_text)
 
+
 @ask.intent('info_request')
-def intent_info_request(slot_breed = '',slot_pronoun = '', slot_ordinal = ''):
-    ORDINALS = ["first", "second", "third", "forth", "fifth","sixth","seventh"]
+def intent_info_request(slot_breed='', slot_pronoun='', slot_ordinal=''):
+    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh"]
     result = query_base_on_user_para()
     if slot_breed !='':
         new_result=[idog for idog in result if idog[1] == slot_breed]
@@ -270,6 +272,7 @@ def intent_info_request(slot_breed = '',slot_pronoun = '', slot_ordinal = ''):
             speech_text = "There are not so many results.Please say again"
         else:
             speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
+
 
     return question(speech_text)
 
