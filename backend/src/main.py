@@ -4,9 +4,9 @@ import logging
 
 from flask import Flask, make_response, jsonify
 from flask_ask import Ask, question, session
+from text_generator import generate_clarification
 from card_generator import generate_card_json
 from text_generator import generate_utter
-from text_generator import generate_clarification
 from query import query
 from config import *
 
@@ -123,15 +123,11 @@ def query_base_on_user_para():
 
 def all_question_answered():
     # make query
-    result = query_base_on_user_para()
-    print(len(result))
-    speech_text = ""
+    dogs = query_base_on_user_para()
+    reply = generate_card_json(dogs)
+    reply["sessionAttributes"] = session.attributes
+    return make_response(jsonify(reply))
 
-    # present result
-    for dog in result:
-        speech_text += elaborate_result(dog)
-
-    return question(speech_text)
 
 '''
 ASK Intent Entries
@@ -242,6 +238,7 @@ def intent_fallback():
 
     return question(speech_text)
 
+
 @ask.intent('Clarification')
 def intent_clarification():
     cur_state=get_state()
@@ -249,6 +246,7 @@ def intent_clarification():
     speech_text = generate_clarification(int(cur_state))
 
     return question(speech_text)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5555, debug=True)
