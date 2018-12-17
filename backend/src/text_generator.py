@@ -16,6 +16,14 @@ TOPIC_ACT = 8
 TOPIC_CARD_COMPARE = 11
 
 
+def generate_say_again():
+    um = UtterMore(
+        " (Sorry, I do not understand|Oh, I failed to catch that), could you please (say it again|tell me one more time)?",
+        " (I didn't catch that|I don't understand), please say it (again|one more time). ",
+    )
+    um.iter_build_utterances()
+    return random.choice(random.choice(um.utterances))
+
 def generate_confirmation(after_clarification=False):
     if after_clarification:
         um = UtterMore(
@@ -82,8 +90,10 @@ def generate_utter(topic_id, after_clarification=False):
         )
     elif topic_id == TOPIC_WELCOME:
         um = UtterMore(
-                       "Welcome"
-                       
+            "Welcome to DogMatcher, a tool that help you find the most suitable furry friend. \
+            I’ll first chat with you about your lifestyle then give you recommendation of dog breeds\
+            based on your habits. Please keep in mind that you can ask for clarification at any time. \
+            Now let’s start with a simple question, "
         )
     else:
         um = UtterMore(

@@ -4,11 +4,9 @@ import logging
 
 from flask import Flask, make_response, jsonify
 from flask_ask import Ask, question, session
-from text_generator import generate_clarification, generate_utter
-from result_generator import elaborate_result
-from result_generator import compareDogRows
-from card_generator import generate_detail_json
-from card_generator import generate_card_json
+from text_generator import generate_clarification, generate_utter, generate_say_again
+from result_generator import elaborate_result, compareDogRows
+from card_generator import generate_detail_json, generate_card_json
 from query import query
 from config import *
 
@@ -239,8 +237,7 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    speech_text = "Fallback intent"
-
+    speech_text = generate_say_again()
     return question(speech_text)
 
 @ask.intent('state_reset')
