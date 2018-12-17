@@ -7,6 +7,7 @@ from flask_ask import Ask, question, session
 from text_generator import generate_clarification, generate_utter
 from result_generator import elaborate_result
 from result_generator import compareDogRows
+from card_generator import generate_detail_json
 from card_generator import generate_card_json
 from query import query
 from config import *
@@ -238,9 +239,12 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    # speech_text = "Fallback intent"
+    speech_text = "Fallback intent"
 
-    # return question(speech_text)
+    return question(speech_text)
+
+@ask.intent('state_reset')
+def intent_state_reset():
     # init state
     set_state(1)
 
@@ -279,20 +283,21 @@ def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
     ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh","eighth","ninth","tenth","1st","2nd","3rd", "4th","5th","6th","7th","8th","9th","10th"]
     result = query_base_on_user_para()
 
-    speech_text = ""
+    target_dog = None
 
     if slot_breed is not None:
         new_result = [idog for idog in result if idog[1] == slot_breed]
-        speech_text = generate_detail_json(new_result[0])
+        target_dog = new_result[0]
     elif slot_ordinal is None:
-        speech_text = generate_detail_json(result[0])
+        target_dog = result[0]
     elif slot_ordinal is not None:
         if (ORDINALS.index(slot_ordinal)%10) >= len(result):
-            speech_text = generate_detail_json(result[-1])
+            target_dog = result[-1]
         else:
-            speech_text = generate_detail_json(result[ORDINALS.index(slot_ordinal)%10])
+            target_dog = result[ORDINALS.index(slot_ordinal)]
 
-    return question(speech_text)
+    reply = generate_detail_json(target_dog)
+    return make_response(jsonify(reply))
 
 
 if __name__ == "__main__":
