@@ -10,6 +10,7 @@ import sqlite3
 ############## filter dogs based on haveKids and aptDog ###############
 def query(trainTime = 5, aptDog = True,  barkLevel = 5, shedLevel = 5, haveKids = True, activityLevel = 1):
     connection = sqlite3.connect(DB_PATH)
+    connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
 
     charactReq = [] # 1-10, smalleset, smartest, family dog, kids' friend etc.
