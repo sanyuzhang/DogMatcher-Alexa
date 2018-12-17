@@ -139,9 +139,8 @@ def compareDogsAnd(dog1, dog2, att):
 
 def compareDogs(dog1, dog2):
     conf = UtterMore(
-        "(Abosolutely|Sure)!",
-        "No problem!",
-        "Comparing %s and %s." % (dog1.name, dog2.name),
+        "(OK|I see|Let me see|Let me check)!",
+        "Let's comparing %s and %s." % (dog1.name, dog2.name),
     )
     res = randomUtter(conf) + " "
     # Get overall difference
