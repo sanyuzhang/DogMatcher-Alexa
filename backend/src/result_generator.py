@@ -58,17 +58,17 @@ def elaborate_result(dog):
     content = dog_desc
 
     if dog_height_min and dog_height_max:
-        content += " %s stands between %s and %s inches." % (dog_name, dog_height_min, dog_height_max)
+        content += " %s stands between %s and %s inches," % (dog_name, dog_height_min, dog_height_max)
     elif dog_height_min:
-        content += " %s stands at least %s inches." % (dog_name, dog_height_min)
+        content += " %s stands at least %s inches," % (dog_name, dog_height_min)
     elif dog_height_max:
-        content += " %s stands at most %s inches." % (dog_name, dog_height_max)
+        content += " %s stands at most %s inches," % (dog_name, dog_height_max)
     if dog_weight_min and dog_weight_max:
-        content += " And he weights between %s and %s pounds." % (dog_weight_min, dog_weight_max)
+        content += " and he weights between %s and %s pounds." % (dog_weight_min, dog_weight_max)
     elif dog_weight_min:
-        content += " And he weights minimum %s pounds." % (dog_weight_min)
+        content += " and he weights minimum %s pounds." % (dog_weight_min)
     elif dog_weight_max:
-        content += " And he weights maximum %s pounds." % (dog_weight_max)
+        content += " and he weights maximum %s pounds." % (dog_weight_max)
     if dog_popularity:
         content += " %s %s amongst the most popular American dogs breeds." % (dog_name, dog_popularity)
     if charactId:
@@ -76,13 +76,13 @@ def elaborate_result(dog):
     else:
         dog_charac = character[0]
     if dog_charac and dog_coat:
-        content += " He is one of the %s with a %s haircoat." % (dog_charac, dog_coat)
+        content += " He is one of the %s with a %s haircoat," % (dog_charac, dog_coat)
     elif dog_charac:
-        content += " He is one of the %s." % (dog_charac)
+        content += " He is one of the %s," % (dog_charac)
     elif dog_coat:
-        content += " He has %s haircoat." % (dog_coat)
+        content += " He has %s haircoat," % (dog_coat)
     if dog_shed:
-        content += " And he sheds %s." % (dog_shed)
+        content += " and he sheds %s." % (dog_shed)
     if dog_activity and dog_train:
         content += " %s %s , and %s when trainning." % (dog_name, dog_activity, dog_train)
     elif dog_activity:
