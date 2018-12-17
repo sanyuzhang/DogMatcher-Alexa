@@ -262,15 +262,17 @@ def intent_clarification():
 def intent_info_request(slot_breed='', slot_pronoun='', slot_ordinal=''):
     ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh"]
     result = query_base_on_user_para()
-
-    speech_text = ""
-
-    if slot_breed != '' and (slot_pronoun not in ORDINALS):
-        new_result = [idog for idog in result if idog[1] == slot_breed]
+    if slot_breed !='':
+        new_result=[idog for idog in result if idog[1] == slot_breed]
         speech_text = elaborate_result(new_result[0])
+    elif slot_ordinal == '':
+        speech_text = elaborate_result(result[0])
+    elif slot_ordinal != '' :
+        if ORDINALS.index(slot_ordinal) >= len(result):
+            speech_text = "There are not so many results.Please say again"
+        else:
+            speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
 
-    if slot_ordinal in ORDINALS:
-        speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
 
     return question(speech_text)
 
