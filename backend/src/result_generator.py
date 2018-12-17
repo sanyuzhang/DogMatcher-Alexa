@@ -99,6 +99,7 @@ def elaborate_result(dog):
     )
     return randomUtter(conf) + " " + randomUtter(des) + " " + randomUtter(com)
 
+
 def compareDogsSameAll(dog1, dog2, atts):
     utStr = "They both"
     attNum = len(atts)
@@ -109,6 +110,7 @@ def compareDogsSameAll(dog1, dog2, atts):
         utStr,
     )
     return randomUtter(ut)
+
 
 def compareDogsSame(dog1, dog2, att):
     attValue = getattr(dog1, att) - 1
@@ -122,6 +124,7 @@ def compareDogsSame(dog1, dog2, att):
     )
     return randomUtter(ut) + "."
 
+
 def compareDogsAnd(dog1, dog2, att):
     attValues = [getattr(dog1, att) - 1, getattr(dog2, att) - 1]
     connective = "and" if abs(attValues[0] - attValues[1]) < 2 else "(but|while)"
@@ -131,6 +134,7 @@ def compareDogsAnd(dog1, dog2, att):
         dog2.name + " " + DOG_ATT[att]["units1"][attValues[1]] + ".",
     )
     return randomUtter(ut)
+
 
 def compareDogs(dog1, dog2):
     res = ""
@@ -192,6 +196,7 @@ def compareDogs(dog1, dog2):
 def compareDogRows(row1, row2):
     return compareDogs(Dog(row1), Dog(row2))
 
+
 def GetDogsDiffDistribution(dogs):
     dogGroups = {"very similar":0, "similar":0, "different":0, "very different":0}
     dogNum = len(dogs)
@@ -208,10 +213,10 @@ def GetDogsDiffDistribution(dogs):
                 dogGroups["very different"] += 1
     print(dogGroups)
 
+
 if __name__ == '__main__':
     # testing
     # Setup database access
-    DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
     connection = sqlite3.connect(DB_PATH)
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
