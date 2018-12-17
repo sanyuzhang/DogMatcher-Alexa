@@ -7,12 +7,12 @@ from utter_more import UtterMore
 from config import *
 from dog import *
 
-activity_level = ["","needs a lot of excercise","needs regular excercise","is energetic","is calm"]
-barking_level = ["","barks when necessary","doesn't like barking very much","tends to bark sometimes","barks frequently","likes to be vocal"]
-shed_level = ["","infrequently","seasonally","frequently","occasionally","regularly"]
+activity_level = ["", "needs a lot of excercise", "needs regular excercise", "is energetic", "is calm"]
+barking_level = ["", "barks when necessary", "doesn't like barking very much", "tends to bark sometimes", "barks frequently", "likes to be vocal"]
+shed_level = ["", "infrequently", "seasonally", "frequently", "occasionally", "regularly"]
 trainability = ["", "maybe stubborn", "is agreeable", "is eager to please", "is independet", "is easy to train"]
 character = ["", "smallest dog breeds", "medium dog breeds", "largest dog breeds", "smartest dogs", "hypoallergenic dogs", "best family dogs", "best guard dogs", "best dogs for kids", "best dogs for apartments dwellers", "hairless dog breeds"]
-coat_type = ["","hairless","short","medium","long","smooth","wire"]
+coat_type = ["", "hairless", "short", "medium", "long", "smooth", "wire"]
 
 
 def randomUtter(utters):
@@ -142,7 +142,7 @@ def compareDogs(dog1, dog2):
         "(Abosolutely|Sure)!",
         "No problem!",
         "Here you go!",
-        "Comparing " + dog1.name + " and " + dog2.name + ",",
+        "Comparing " + dog1.name + " and " + dog2.name + ", ",
     )
     res += randomUtter(conf) + " "
     # Get overall difference
@@ -198,7 +198,7 @@ def compareDogRows(row1, row2):
 
 
 def GetDogsDiffDistribution(dogs):
-    dogGroups = {"very similar":0, "similar":0, "different":0, "very different":0}
+    dogGroups = {"very similar": 0, "similar": 0, "different": 0, "very different": 0}
     dogNum = len(dogs)
     for i in range(dogNum):
         for j in range(i + 1, dogNum):
