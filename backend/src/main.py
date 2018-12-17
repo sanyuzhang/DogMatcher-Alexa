@@ -124,7 +124,10 @@ def query_base_on_user_para():
 def all_question_answered():
     # make query
     dogs = query_base_on_user_para()
-    reply = generate_card_json(dogs, top_n=5)
+
+    num = min(5, len(dogs))
+
+    reply = generate_card_json(dogs, top_n=num)
     reply["sessionAttributes"] = session.attributes
     return make_response(jsonify(reply))
 
@@ -259,15 +262,18 @@ def intent_clarification():
 
 
 @ask.intent('info_request')
-def intent_info_request(slot_breed='', slot_pronoun='', slot_ordinal=''):
+def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
     ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh"]
     result = query_base_on_user_para()
-    if slot_breed != '':
+
+    speech_text = ""
+
+    if slot_breed is not None:
         new_result = [idog for idog in result if idog[1] == slot_breed]
         speech_text = elaborate_result(new_result[0])
-    elif slot_ordinal == '':
+    elif slot_ordinal is None:
         speech_text = elaborate_result(result[0])
-    elif slot_ordinal != '':
+    elif slot_ordinal is not None:
         if ORDINALS.index(slot_ordinal) >= len(result):
             speech_text = elaborate_result(result[-1])
         else:
