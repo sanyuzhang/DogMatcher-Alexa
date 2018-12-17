@@ -6,6 +6,7 @@ from flask import Flask, make_response, jsonify
 from flask_ask import Ask, question, session
 from text_generator import generate_clarification, generate_utter
 from result_generator import elaborate_result
+from result_generator import compareDogRows
 from card_generator import generate_detail_json
 from card_generator import generate_card_json
 from query import query
