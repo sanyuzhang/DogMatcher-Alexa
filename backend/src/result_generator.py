@@ -189,6 +189,9 @@ def compareDogs(dog1, dog2):
 
     return res
 
+def compareDogRows(row1, row2):
+    return compareDogs(Dog(row1), Dog(row2))
+
 def GetDogsDiffDistribution(dogs):
     dogGroups = {"very similar":0, "similar":0, "different":0, "very different":0}
     dogNum = len(dogs)
