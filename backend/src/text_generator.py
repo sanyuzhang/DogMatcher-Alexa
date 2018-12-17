@@ -26,7 +26,7 @@ def generate_confirmation(after_clarification=False):
     else:
         um = UtterMore(
             " (Got it|I see|OK|Roger that|Good). ",
-            " (Great|Cool|Excellent|Sweet). "
+            " (Great|Cool|Got you|Excellent|Sweet). "
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
