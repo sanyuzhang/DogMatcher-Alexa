@@ -116,7 +116,6 @@ def generate_clarification(topic_id):
              For someone deciding to get their very first dog, there can be quite a learning curve|\
             Some types of dogs will be much better suited towards first-time owners than others).\
               By getting to know your experience, I can modify the range of my search.",
-            ""
         )
     elif topic_id == TOPIC_TIME:
         um = UtterMore(

@@ -262,6 +262,7 @@ def intent_clarification():
 
     return question(speech_text)
 
+
 @ask.intent('breed_compare')
 def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
     result = query_base_on_user_para()

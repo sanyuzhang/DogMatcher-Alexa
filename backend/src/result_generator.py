@@ -41,6 +41,7 @@ def elaborate_result(dog):
     dog_popularity = dog[17]
 
     connection = sqlite3.connect(DB_PATH)
+    connection.row_factory = sqlite3.Row
     cursor = connection.cursor() 
     cursor.execute("SELECT characteristic_id FROM dogs_characteristics WHERE dog_id == %s" % (dog_id))
     charactId = cursor.fetchone()
