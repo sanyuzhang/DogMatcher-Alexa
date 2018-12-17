@@ -61,11 +61,11 @@ def generate_utter(topic_id, after_clarification=False):
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
             "%s Would you like your dog to be quieter or more vocal? " % (prefix),
-            "%s On a scale of one to five, with five being the highest, what's your tolerence level for barking? " % (prefix),
+            "%s On a scale of one to five, with five being the highest, what's your tolerance level for barking? " % (prefix),
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
-            "%s On a scale of one to five, with five being the highest, what's your tolerence level for shedding? " % (prefix),
+            "%s On a scale of one to five, with five being the highest, what's your tolerance level for shedding? " % (prefix),
             "%s What's your expectation of shedding, frequent or infrequent? " % (prefix),
         )
     elif topic_id == TOPIC_KIDS:
@@ -157,14 +157,14 @@ def generate_clarification(topic_id):
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
             "Dog bark could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
-            breeds that are beyound your tolerence. ",
+            breeds that are beyond your tolerance. ",
             "There are certain breeds that are more prone to barking than others. If you don't like\
               dog, I'll cross those out from my list. ",
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
             "Dog shedding could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
-            breeds that are beyound your tolerence. ",
+            breeds that are beyond your tolerance. ",
             "There are certain breeds that are more prone to shed than others. If you don't like\
              a dog leaves much of his hair behind on your belongings, I'll cross it from my list. ",
         )
