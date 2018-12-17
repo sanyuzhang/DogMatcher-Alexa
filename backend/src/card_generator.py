@@ -74,7 +74,7 @@ def generate_card_json(dogs, top_n=5):
         else:
             dog = random.choice(dogs)
             content = "OK. I selected 1 matched dog for you, %s." % (dog[1])
-            content += " You can ask me for more details about this dogs."
+            content += " You can ask me for more details about this dog."
             reply["response"]["outputSpeech"]["text"] = content
             reply["response"]["card"]["text"] = content
 
