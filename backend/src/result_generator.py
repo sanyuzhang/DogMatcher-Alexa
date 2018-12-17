@@ -84,7 +84,7 @@ def elaborate_result(dog):
     if dog_shed:
         content += " and he sheds %s." % (dog_shed)
     if dog_activity and dog_train:
-        content += " %s %s , and %s when trainning." % (dog_name, dog_activity, dog_train)
+        content += " %s %s , and %s when training." % (dog_name, dog_activity, dog_train)
     elif dog_activity:
         content += " %s %s." % (dog_name, dog_activity)
     elif dog_train:
