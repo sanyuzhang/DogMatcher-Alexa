@@ -6,6 +6,7 @@ from flask import Flask
 from flask_ask import Ask, statement, question, session
 from result_generator import elaborate_result
 from text_generator import generate_utter
+from text_generator import generate_clarification
 from query import query
 from config import *
 
@@ -123,7 +124,7 @@ def query_base_on_user_para():
 def all_question_answered():
     # make query
     result = query_base_on_user_para()
-
+    print(len(result))
     speech_text = ""
 
     # present result
@@ -242,6 +243,13 @@ def intent_fallback():
 
     return question(speech_text)
 
+@ask.intent('Clarification')
+def intent_clarification():
+    cur_state=get_state()
+    #print(cur_state)
+    speech_text = generate_clarification(int(cur_state))
+
+    return question(speech_text)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5555, debug=True)
