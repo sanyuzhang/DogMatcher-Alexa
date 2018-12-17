@@ -137,33 +137,31 @@ def compareDogsAnd(dog1, dog2, att):
 
 
 def compareDogs(dog1, dog2):
-    res = ""
     conf = UtterMore(
         "(Abosolutely|Sure)!",
         "No problem!",
-        "Here you go!",
-        "Comparing " + dog1.name + " and " + dog2.name + ", ",
+        "Comparing %s and %s." % (dog1.name, dog2.name),
     )
-    res += randomUtter(conf) + " "
+    res = randomUtter(conf) + " "
     # Get overall difference
     diff = GetDogsDiffCategory(dog1, dog2)
     if diff == 0:
         ut = UtterMore(
-            dog1.name + " is very similar to " + dog2.name,
+            " %s is very similar to %s. " % (dog1.name, dog2.name),
         )
     elif diff == 1:
         ut = UtterMore(
-            dog1.name + " is similar to " + dog2.name,
+            " %s is similar to %s. " % (dog1.name, dog2.name),
         )
     elif diff == 2:
         ut = UtterMore(
-            dog1.name + " is somewhat different to " + dog2.name,
+            " %s is somewhat different to %s. " % (dog1.name, dog2.name),
         )
     else:
         ut = UtterMore(
-            dog1.name + " is very different to " + dog2.name,
+            " %s is very different to %s. " % (dog1.name, dog2.name),
         )
-    res += randomUtter(ut) + ". "
+    res += randomUtter(ut) + " "
     
     # Compare each attribute
     dogAtts = ['size', 'actLvl', 'barkLvl', 'shed'] 
@@ -211,7 +209,6 @@ def GetDogsDiffDistribution(dogs):
                 dogGroups["different"] += 1
             else:
                 dogGroups["very different"] += 1
-    print(dogGroups)
 
 
 if __name__ == '__main__':
@@ -239,6 +236,5 @@ if __name__ == '__main__':
     dogNum = len(dogs)
     for i in range(1):
         ids = random.sample(range(dogNum), 2)
-        print(ids)
         print(compareDogs(dogs[ids[0]], dogs[ids[1]]))
     
