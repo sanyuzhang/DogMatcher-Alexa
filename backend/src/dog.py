@@ -1,23 +1,14 @@
+import os
 from math import *
+import json
 
 SIZE_MAX = 5
 ACTIVITY_MAX = 4
 BARKING_MAX = 5
 SHED_MAX = 5
 
-ATT_STR = {
-    "size":["size", "are about the same size", "is (as large|about the same size) as"], 
-    "actLvl":["activity level", "act at the same level", "acts (as much|about the same amount) as"],
-    "barkLvl":["barking level", "bark in the same loudness", "barks (as loud|in the same loudness) as"],
-    "shed":["shedding frequency", "shed in the same amount", "sheds (as frequent|in the same frequency) as"],
-}
-
-ATT_UNIT = {
-    "size":["xsmall", "small", "medium", "large", "xlarge"], 
-    "actLvl":["needs a lot of excercise", "needs regular excercise", "is energetic", "is calm"],
-    "barkLvl":["barks when necessary", "doesn't like barking very much", "tends to bark sometimes","barks frequently","likes to be vocal"],
-    "shed":["infrequently", "seasonally", "frequently", "occasionally", "regularly"],
-}
+with open(os.path.dirname(os.path.realpath(__file__)) + '/dogAtt.json') as f:
+    DOG_ATT = json.load(f)
 
 class Dog:
     def __init__(self, row):
