@@ -2,9 +2,9 @@
 
 import logging
 
-from flask import Flask
-from flask_ask import Ask, statement, question, session
-from result_generator import elaborate_result
+from flask import Flask, make_response, jsonify
+from flask_ask import Ask, question, session
+from card_generator import generate_card_json
 from text_generator import generate_utter
 from text_generator import generate_clarification
 from query import query
@@ -132,7 +132,6 @@ def all_question_answered():
         speech_text += elaborate_result(dog)
 
     return question(speech_text)
-
 
 '''
 ASK Intent Entries
