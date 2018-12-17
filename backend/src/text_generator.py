@@ -80,7 +80,7 @@ def generate_utter(topic_id, after_clarification=False):
         um = UtterMore(
             "%s Do you have (kids|a kid) under ten? " % (prefix),
             "%s Do you have small kids at home? " % (prefix),
-            "%s Do you want a kids-friendly dog? " % (prefix),
+            "%s Do you only want a kids-friendly dog? " % (prefix),
         )
     elif topic_id == TOPIC_ACT:
         um = UtterMore(
