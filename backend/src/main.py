@@ -261,6 +261,18 @@ def intent_clarification():
 
     return question(speech_text)
 
+@ask.intent('breed_compare')
+def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
+    result = query_base_on_user_para()
+    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh","eighth","ninth","tenth"]
+    if len(result) <= 1:
+        speech_text = "Nothing to compare."
+    elif (ORDINALS.index(slot_ordinal_c) < len(result)) and (ORDINALS.index(slot_ordinal_cc) < len(result)):
+        speech_text = compareDogRows(result[ORDINALS.index(slot_ordinal_c)], result[ORDINALS.index(slot_ordinal_cc)])
+    else:
+        speech_text = compareDogRows(result[-2], result[-1])
+    return question(speech_text)
+
 
 @ask.intent('info_request')
 def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
