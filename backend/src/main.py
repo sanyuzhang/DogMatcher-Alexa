@@ -263,21 +263,21 @@ def intent_clarification():
 
 @ask.intent('info_request')
 def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
-    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh"]
+    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh","eighth","ninth","tenth"]
     result = query_base_on_user_para()
 
     speech_text = ""
 
     if slot_breed is not None:
         new_result = [idog for idog in result if idog[1] == slot_breed]
-        speech_text = elaborate_result(new_result[0])
+        speech_text = generate_detail_json(new_result[0])
     elif slot_ordinal is None:
-        speech_text = elaborate_result(result[0])
+        speech_text = generate_detail_json(result[0])
     elif slot_ordinal is not None:
         if ORDINALS.index(slot_ordinal) >= len(result):
-            speech_text = elaborate_result(result[-1])
+            speech_text = generate_detail_json(result[-1])
         else:
-            speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
+            speech_text = generate_detail_json(result[ORDINALS.index(slot_ordinal)])
 
     return question(speech_text)
 
