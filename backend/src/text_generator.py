@@ -166,7 +166,7 @@ def generate_clarification(topic_id):
             "Dog shedding could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
             breeds that are beyond your tolerance. ",
             "There are certain breeds that are more prone to shed than others. If you don't like\
-             a dog leaves much of his hair behind on your belongings, I'll cross it from my list. ",
+             a dog leaving much of his hair behind on your belongings, I'll cross it from my list. ",
         )
     elif topic_id == TOPIC_KIDS:
         um = UtterMore(
