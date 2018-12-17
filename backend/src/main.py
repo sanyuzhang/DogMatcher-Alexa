@@ -234,16 +234,38 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    speech_text = "Fallback intent"
+    #speech_text = "Fallback intent"
+
+    #return question(speech_text)
+    # init state
+    set_state(1)
+
+    # init parameters for later SQL query
+    set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
+
+    #speech_text = generate_utter(0)
+    speech_text += generate_utter(1)
+
+    reprompt = speech_text
+
+    return question(speech_text).reprompt(reprompt)
+
+@ask.intent('clarification')
+def intent_clarification():
+    speech_text = generate_clarification(int(get_state()))
 
     return question(speech_text)
 
-
-@ask.intent('Clarification')
-def intent_clarification():
-    cur_state=get_state()
-    #print(cur_state)
-    speech_text = generate_clarification(int(cur_state))
+@ask.intent('info_request')
+def intent_info_request(slot_breed = '',slot_pronoun = '', slot_ordinal = ''):
+    ORDINALS = ["first", "second", "third", "forth", "fifth","sixth","seventh"]
+    result = query_base_on_user_para()
+    if slot_breed !='' and (slot_pronoun not in ORDINALS):
+        new_result=[idog for idog in result if idog[1] == slot_breed]
+        speech_text = elaborate_result(new_result[0])
+    
+    if slot_ordinal in ORDINALS :
+        speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
 
     return question(speech_text)
 
