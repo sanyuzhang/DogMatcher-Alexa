@@ -82,10 +82,13 @@ def generate_utter(topic_id, after_clarification=False):
         )
     elif topic_id == TOPIC_WELCOME:
         um = UtterMore(
-                       "Welcome" #to DogMatcher, a tool that help you find the most suitable furry friend. \
+                       "Welcome"
+                       '''
+                       to DogMatcher, a tool that help you find the most suitable furry friend. \
                        I’ll first chat with you about your lifestyle then give you recommendation of dog breeds\
                        based on your habits. Please keep in mind that you can ask for clarification at any time. \
                        Now let’s start with a simple question,
+                       '''
         )
     else:
         um = UtterMore(
