@@ -19,14 +19,14 @@ TOPIC_CARD_COMPARE = 11
 def generate_confirmation(after_clarification=False):
     if after_clarification:
         um = UtterMore(
-            "(Now|So|OK), tell me (again|one more time).",
-            "(Now|So|OK), let's do it (again|one more time).",
-            "(Now|So|OK), please answer my question (again|one more time).",
+            "(Now|So|OK), tell me (again|one more time). ",
+            "(Now|So|OK), let's do it (again|one more time). ",
+            "(Now|So|OK), please answer my question (again|one more time). ",
         )
     else:
         um = UtterMore(
-            "(Got it|Gotcha|I see|OK|Roger that|Good).",
-            "(Great|Ok|Cool|Got it|Exellent|Sweet|)." 
+            "(Got it|Gotcha|I see|OK|Roger that|Good). ",
+            "(Great|Ok|Cool|Got it|Exellent|Sweet|). "
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
@@ -37,65 +37,60 @@ def generate_utter(topic_id, after_clarification=False):
 
     if topic_id == TOPIC_EXP:
         um = UtterMore(
-            "(Tell me, |)(what is|what's) your experience with dogs?",
-            "(Tell me, |)have you ever (had|adopted) (a dog|dogs) before?",
-            "(Are you familiar|Do you have experience) with raising (a dog|dogs)?"
+            "(Tell me, |)(what is|what's) your experience with dogs? ",
+            "(Tell me, |)have you ever (had|adopted) (a dog|dogs) before? ",
+            "(Are you familiar|Do you have experience) with raising (a dog|dogs)? "
         )
     elif topic_id == TOPIC_TIME:
         um = UtterMore(
-            "%s How many hours (per|every) week (can|could) you (put into|spend on) (trainning|playing with) your dog?" % (prefix),
-            "%s In general, what's the hours per week that you (put into|spend on) (trainning|playing with) your dog?" % (prefix),
+            "%s How many hours (per|every) week (can|could) you (put into|spend on) (trainning|playing with) your dog? " % (prefix),
+            "%s In general, what's the hours per week that you (put into|spend on) (trainning|playing with) your dog? " % (prefix),
         )
     elif topic_id == TOPIC_HOME:
         um = UtterMore(
-            "%s Do you live in an apartment or a house?" % (prefix),
-            "%s What kind of home do you live in, a house or an apartment?" % (prefix),
-            "%s What is your living condition? Is it an apartment or a house?" % (prefix),
+            "%s Do you live in an apartment or a house? " % (prefix),
+            "%s What kind of home do you live in, a house or an apartment? " % (prefix),
+            "%s What is your living condition? Is it an apartment or a house? " % (prefix),
         )
     elif topic_id == TOPIC_APT:
         um = UtterMore(
-            "%s Do you just want to see dogs that are suitable for (an apartment|apartments)?" % (prefix),
-            "%s Would you like to see apartment dogs only?" % (prefix),
-            "%s Would you only consider apartment dogs?" % (prefix),
+            "%s Do you just want to see dogs that are suitable for (an apartment|apartments)? " % (prefix),
+            "%s Would you like to see apartment dogs only? " % (prefix),
+            "%s Would you only consider apartment dogs? " % (prefix),
         )
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
-            "%s Would you like your dog to be quieter or more vocal?" % (prefix),
-            "%s On a scale of one to five, with five being the highest, what's your tolerence level for barking?" % (prefix),
+            "%s Would you like your dog to be quieter or more vocal? " % (prefix),
+            "%s On a scale of one to five, with five being the highest, what's your tolerence level for barking? " % (prefix),
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
-            "%s On a scale of one to five, with five being the highest, what's your tolerence level for shedding?" % (prefix),
-            "%s What's your expectation of shedding, frequent or infrequent?" % (prefix),
+            "%s On a scale of one to five, with five being the highest, what's your tolerence level for shedding? " % (prefix),
+            "%s What's your expectation of shedding, frequent or infrequent? " % (prefix),
         )
     elif topic_id == TOPIC_KIDS:
         um = UtterMore(
-            "%s Do you have (kids|a kid) under ten?" % (prefix),
-            "%s Do you have small kids at home?" % (prefix),
-            "%s Do you want a kids-friendly dog?" % (prefix),
+            "%s Do you have (kids|a kid) under ten? " % (prefix),
+            "%s Do you have small kids at home? " % (prefix),
+            "%s Do you want a kids-friendly dog? " % (prefix),
         )
     elif topic_id == TOPIC_ACT:
         um = UtterMore(
-            "%s On a scale one to four, with four being the highest, what's your activity level?" % (prefix),
-            "%s Do you excercise very often?" % (prefix),
-            "%s How often do you excercise?" % (prefix),
+            "%s On a scale one to four, with four being the highest, what's your activity level? " % (prefix),
+            "%s Do you excercise very often? " % (prefix),
+            "%s How often do you excercise? " % (prefix),
         )
     elif topic_id == TOPIC_WELCOME:
         um = UtterMore(
                        "Welcome"
-                       '''
-                       to DogMatcher, a tool that help you find the most suitable furry friend. \
-                       I’ll first chat with you about your lifestyle then give you recommendation of dog breeds\
-                       based on your habits. Please keep in mind that you can ask for clarification at any time. \
-                       Now let’s start with a simple question,
-                       '''
+                       
         )
     else:
         um = UtterMore(
-            "Sorry, I don't understand.",
-            "Sorry, I did not catch that.",
-            "Sorry, can you speak it again?",
-            "Say that one more time?"
+            "Sorry, I don't understand. ",
+            "Sorry, I did not catch that. ",
+            "Sorry, can you speak it again? ",
+            "Say that one more time? ",
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
@@ -107,18 +102,18 @@ def generate_card_utter(topic_id, top_n=5, content=None):
             um = UtterMore(
                 "(Perfect|Great|Excellent), based on your life habbits, I have found the top\
                  %s matches for you. They are %s You can ask more information for a particular breed or ask\
-                 me to compare between two breeds." % (top_n, content),
+                 me to compare between two breeds. " % (top_n, content),
             )
         else:
             um = UtterMore(
                 "(Perfect|Great|Excellent), based on your life habbits, I have found the 1\
-                 match for you. He is %s. You can ask more information about him." % (content),
+                 match for you. He is %s. You can ask more information about him. " % (content),
             )
     else:
         um = UtterMore(
             "Sorry, (I could not find a matched dog based on your life habbits|\
             It seems very difficult to find a perfect match for you). Try to alter your\
-             criteria, and when you are ready, give it another try.",
+             criteria, and when you are ready, give it another try. ",
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
@@ -157,21 +152,21 @@ def generate_clarification(topic_id):
              quiet, it’s necessary to find a dog breed that quieter at home. By replying yes\
              , I'll find you those kind. ",
             "Because by saying no, which means that the size and the barking level of a dog \
-            doesn't bother you, I can offer you a greater variety of choices.",
+            doesn't bother you, I can offer you a greater variety of choices. ",
         )
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
             "Dog bark could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
-            breeds that are beyound your tolerence.",
+            breeds that are beyound your tolerence. ",
             "There are certain breeds that are more prone to barking than others. If you don't like\
-              dog, I'll cross those out from my list."
+              dog, I'll cross those out from my list. ",
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
             "Dog shedding could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
             breeds that are beyound your tolerence. ",
             "There are certain breeds that are more prone to shed than others. If you don't like\
-             a dog leaves much of his hair behind on your belongings, I'll cross it from my list."
+             a dog leaves much of his hair behind on your belongings, I'll cross it from my list. ",
         )
     elif topic_id == TOPIC_KIDS:
         um = UtterMore(
@@ -192,9 +187,9 @@ def generate_clarification(topic_id):
         )
     else:
         um = UtterMore(
-            "Sorry, I cannot understand.",
-            "Sorry, I did not catch that.",
-            "Sorry, can you speak it again?"
+            "Sorry, I cannot understand. ",
+            "Sorry, I did not catch that. ",
+            "Sorry, can you speak it again? ",
         )
     um.iter_build_utterances()
     if topic_id == TOPIC_UNKNOWN or topic_id == TOPIC_WELCOME:
