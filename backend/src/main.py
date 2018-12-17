@@ -259,20 +259,22 @@ def intent_state_reset():
 @ask.intent('clarification')
 def intent_clarification():
     speech_text = generate_clarification(int(get_state()))
-
     return question(speech_text)
 
 
 @ask.intent('breed_compare')
 def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
-    result = query_base_on_user_para()
-    ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh","eighth","ninth","tenth","1st","2nd","3rd", "4th","5th","6th","7th","8th","9th","10th"]
-    if len(result) <= 1:
-        speech_text = "Nothing to compare."
-    elif ((ORDINALS.index(slot_ordinal_c)%10) < len(result)) and ((ORDINALS.index(slot_ordinal_cc)%10) < len(result)):
-        speech_text = compareDogRows(result[ORDINALS.index(slot_ordinal_c)%10], result[ORDINALS.index(slot_ordinal_cc)%10])
+    if slot_ordinal_c and slot_ordinal_cc:
+        result = query_base_on_user_para()
+        ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh","eighth","ninth","tenth","1st","2nd","3rd", "4th","5th","6th","7th","8th","9th","10th"]
+        if len(result) <= 1:
+            speech_text = "Nothing to compare."
+        elif ((ORDINALS.index(slot_ordinal_c)%10) < len(result)) and ((ORDINALS.index(slot_ordinal_cc)%10) < len(result)):
+            speech_text = compareDogRows(result[ORDINALS.index(slot_ordinal_c)%10], result[ORDINALS.index(slot_ordinal_cc)%10])
+        else:
+            speech_text = compareDogRows(result[-2], result[-1])
     else:
-        speech_text = compareDogRows(result[-2], result[-1])
+        speech_text = generate_say_again()
     return question(speech_text)
 
 
