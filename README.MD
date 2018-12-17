@@ -67,7 +67,3 @@ source ENV\bin\activate
 ```
 pip install -r requirements.txt
 ```
-
-* Install SQLite3
-
-To be continued...
