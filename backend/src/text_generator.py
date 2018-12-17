@@ -19,14 +19,14 @@ TOPIC_CARD_COMPARE = 11
 def generate_confirmation(after_clarification=False):
     if after_clarification:
         um = UtterMore(
-            "(Now|So|OK), tell me (again|one more time). ",
-            "(Now|So|OK), let's do it (again|one more time). ",
-            "(Now|So|OK), please answer my question (again|one more time). ",
+            " (Now|So|OK), tell me (again|one more time). ",
+            " (Now|So|OK), let's do it (again|one more time). ",
+            " (Now|So|OK), please answer my question (again|one more time). ",
         )
     else:
         um = UtterMore(
-            "(Got it|Gotcha|I see|OK|Roger that|Good). ",
-            "(Great|Ok|Cool|Got it|Exellent|Sweet|). "
+            " (Got it|Gotcha|I see|OK|Roger that|Good). ",
+            " (Great|Ok|Cool|Got it|Exellent|Sweet|). "
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
@@ -194,9 +194,9 @@ def generate_clarification(topic_id):
     um.iter_build_utterances()
     if topic_id == TOPIC_UNKNOWN or topic_id == TOPIC_WELCOME:
         return random.choice(random.choice(um.utterances))
-    return random.choice(random.choice(um.utterances)) + generate_utter(topic_id, after_clarification=True)
+    return random.choice(random.choice(um.utterances)) + " " + generate_utter(topic_id, after_clarification=True)
 
 
 if __name__ == '__main__':
     for i in range(-1, 9):
-        print(generate_utter(i))
+        print(generate_clarification(i))
