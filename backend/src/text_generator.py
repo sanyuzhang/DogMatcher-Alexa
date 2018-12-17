@@ -82,10 +82,10 @@ def generate_utter(topic_id, after_clarification=False):
         )
     elif topic_id == TOPIC_WELCOME:
         um = UtterMore(
-            "Welcome to DogMatcher, a tool that help you find the most suitable furry friend. \
-            I’ll first chat with you about your lifestyle then give you recommendation of dog breeds\
-            based on your habits. Please keep in mind that you can ask for clarification at any time. \
-            Now let’s start with a simple question, "
+                       "Welcome" #to DogMatcher, a tool that help you find the most suitable furry friend. \
+                       I’ll first chat with you about your lifestyle then give you recommendation of dog breeds\
+                       based on your habits. Please keep in mind that you can ask for clarification at any time. \
+                       Now let’s start with a simple question,
         )
     else:
         um = UtterMore(
@@ -115,7 +115,7 @@ def generate_card_utter(topic_id, top_n=5, content=None):
         um = UtterMore(
             "Sorry, (I could not find a matched dog based on your life habbits|\
             It seems very difficult to find a perfect match for you). Try to alter your\
-             criteria, and when you are ready, give it another try",
+             criteria, and when you are ready, give it another try.",
         )
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
@@ -154,21 +154,21 @@ def generate_clarification(topic_id):
              quiet, it’s necessary to find a dog breed that quieter at home. By replying yes\
              , I'll find you those kind. ",
             "Because by saying no, which means that the size and the barking level of a dog \
-            does't bother you, I can offer you a greater variety of choices. ",
+            doesn't bother you, I can offer you a greater variety of choices.",
         )
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
             "Dog bark could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
-            breeds that are beyound your tolerence. ",
+            breeds that are beyound your tolerence.",
             "There are certain breeds that are more prone to barking than others. If you don't like\
-              dog, I'll cross those out from my list. "
+              dog, I'll cross those out from my list."
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
             "Dog shedding could be (disturbing|annoying) sometimes. By asking this, I can avoid the\
             breeds that are beyound your tolerence. ",
             "There are certain breeds that are more prone to shed than others. If you don't like\
-             a dog leaves much of his hair behind on your belongings, I'll cross it from my list. "
+             a dog leaves much of his hair behind on your belongings, I'll cross it from my list."
         )
     elif topic_id == TOPIC_KIDS:
         um = UtterMore(
