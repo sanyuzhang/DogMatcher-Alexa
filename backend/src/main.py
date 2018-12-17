@@ -239,9 +239,12 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    # speech_text = "Fallback intent"
+    speech_text = "Fallback intent"
 
-    # return question(speech_text)
+    return question(speech_text)
+
+@ask.intent('state_reset')
+def intent_state_reset():
     # init state
     set_state(1)
 
@@ -266,11 +269,11 @@ def intent_clarification():
 @ask.intent('breed_compare')
 def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
     result = query_base_on_user_para()
-    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh","eighth","ninth","tenth"]
+    ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh","eighth","ninth","tenth","1st","2nd","3rd", "4th","5th","6th","7th","8th","9th","10th"]
     if len(result) <= 1:
         speech_text = "Nothing to compare."
-    elif (ORDINALS.index(slot_ordinal_c) < len(result)) and (ORDINALS.index(slot_ordinal_cc) < len(result)):
-        speech_text = compareDogRows(result[ORDINALS.index(slot_ordinal_c)], result[ORDINALS.index(slot_ordinal_cc)])
+    elif ((ORDINALS.index(slot_ordinal_c)%10) < len(result)) and ((ORDINALS.index(slot_ordinal_cc)%10) < len(result)):
+        speech_text = compareDogRows(result[ORDINALS.index(slot_ordinal_c)%10], result[ORDINALS.index(slot_ordinal_cc)%10])
     else:
         speech_text = compareDogRows(result[-2], result[-1])
     return question(speech_text)
@@ -278,7 +281,7 @@ def intent_breed_compare(slot_ordinal_c,slot_ordinal_cc):
 
 @ask.intent('info_request')
 def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
-    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"]
+    ORDINALS = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh","eighth","ninth","tenth","1st","2nd","3rd", "4th","5th","6th","7th","8th","9th","10th"]
     result = query_base_on_user_para()
 
     target_dog = None
@@ -289,7 +292,7 @@ def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
     elif slot_ordinal is None:
         target_dog = result[0]
     elif slot_ordinal is not None:
-        if ORDINALS.index(slot_ordinal) >= len(result):
+        if (ORDINALS.index(slot_ordinal)%10) >= len(result):
             target_dog = result[-1]
         else:
             target_dog = result[ORDINALS.index(slot_ordinal)]
