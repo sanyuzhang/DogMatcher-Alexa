@@ -295,7 +295,7 @@ def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
         if (ORDINALS.index(slot_ordinal)%10) >= len(result):
             target_dog = result[-1]
         else:
-            target_dog = result[ORDINALS.index(slot_ordinal)]
+            target_dog = result[ORDINALS.index(slot_ordinal)%10]
 
     reply = generate_detail_json(target_dog)
     return make_response(jsonify(reply))
