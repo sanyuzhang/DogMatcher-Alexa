@@ -4,9 +4,9 @@ import logging
 
 from flask import Flask, make_response, jsonify
 from flask_ask import Ask, question, session
-from text_generator import generate_clarification
+from text_generator import generate_clarification, generate_utter
+from result_generator import elaborate_result
 from card_generator import generate_card_json
-from text_generator import generate_utter
 from query import query
 from config import *
 
@@ -124,7 +124,10 @@ def query_base_on_user_para():
 def all_question_answered():
     # make query
     dogs = query_base_on_user_para()
-    reply = generate_card_json(dogs)
+
+    num = min(5, len(dogs))
+
+    reply = generate_card_json(dogs, top_n=num)
     reply["sessionAttributes"] = session.attributes
     return make_response(jsonify(reply))
 
@@ -234,21 +237,22 @@ def intent_ans_activity_level(slot_activity_level):
 
 @ask.intent('AMAZON.FallbackIntent')
 def intent_fallback():
-    #speech_text = "Fallback intent"
+    # speech_text = "Fallback intent"
 
-    #return question(speech_text)
+    # return question(speech_text)
     # init state
     set_state(1)
 
     # init parameters for later SQL query
     set_session_attr(ATTRIBUTE_DOG_PARAMETER, DEFAULT_PARAMETER)
 
-    #speech_text = generate_utter(0)
-    speech_text += generate_utter(1)
+    # speech_text = generate_utter(0)
+    speech_text = generate_utter(1)
 
     reprompt = speech_text
 
     return question(speech_text).reprompt(reprompt)
+
 
 @ask.intent('clarification')
 def intent_clarification():
@@ -256,20 +260,24 @@ def intent_clarification():
 
     return question(speech_text)
 
+
 @ask.intent('info_request')
-def intent_info_request(slot_breed = None,slot_pronoun = None, slot_ordinal = None):
-    ORDINALS = ["first", "second", "third", "forth", "fifth","sixth","seventh","eighth","ninth","tenth"]
+def intent_info_request(slot_breed, slot_pronoun, slot_ordinal):
+    ORDINALS = ["first", "second", "third", "forth", "fifth", "sixth", "seventh","eighth","ninth","tenth"]
     result = query_base_on_user_para()
-    if len(result) == 1:
-        speech_text = elaborate_result(result[0])
-    elif slot_breed != None:
-        new_result=[idog for idog in result if idog[1] == slot_breed]
-        speech_text = elaborate_result(new_result[0])
-    elif slot_ordinal != None :
+
+    speech_text = ""
+
+    if slot_breed is not None:
+        new_result = [idog for idog in result if idog[1] == slot_breed]
+        speech_text = generate_detail_json(new_result[0])
+    elif slot_ordinal is None:
+        speech_text = generate_detail_json(result[0])
+    elif slot_ordinal is not None:
         if ORDINALS.index(slot_ordinal) >= len(result):
-            speech_text = "There are not so many results.Please say again"
+            speech_text = generate_detail_json(result[-1])
         else:
-            speech_text = elaborate_result(result[ORDINALS.index(slot_ordinal)])
+            speech_text = generate_detail_json(result[ORDINALS.index(slot_ordinal)])
 
     return question(speech_text)
 

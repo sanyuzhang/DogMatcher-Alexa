@@ -26,42 +26,42 @@ def generate_utter(topic_id):
         )
     elif topic_id == TOPIC_TIME:
         um = UtterMore(
-            "How many hours (per|every) week (can|could) you (put into|spend on) (trainning|playing with) your dog?",
-            "In general, what's the hours per week that you (put into|spend on) (trainning|playing with) your dog?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). How many hours (per|every) week (can|could) you (put into|spend on) (trainning|playing with) your dog?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). In general, what's the hours per week that you (put into|spend on) (trainning|playing with) your dog?"
         )
     elif topic_id == TOPIC_HOME:
         um = UtterMore(
-            "Do you live in an apartment or a house?",
-            "What kind of home do you live in, a house or an apartment?",
-            "What is your living condition? Is it an apartment or a house?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you live in an apartment or a house?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). What kind of home do you live in, a house or an apartment?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). What is your living condition? Is it an apartment or a house?"
         )
     elif topic_id == TOPIC_APT:
         um = UtterMore(
-            "Do you just want to see dogs that are suitable for (an apartment|apartments)?",
-            "Would you like to see apartment dogs only?",
-            "Would you only consider apartment dogs?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you just want to see dogs that are suitable for (an apartment|apartments)?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Would you like to see apartment dogs only?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Would you only consider apartment dogs?"
         )
     elif topic_id == TOPIC_NOISE:
         um = UtterMore(
-            "Would you like your dog to be quieter or more vocal?",
-            "On a scale of one to five, with five being the highest, what's your tolerence level for barking?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Would you like your dog to be quieter or more vocal?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). On a scale of one to five, with five being the highest, what's your tolerence level for barking?"
         )
     elif topic_id == TOPIC_SHED:
         um = UtterMore(
-            "On a scale of one to five, with five being the highest, what's your tolerence level for shedding?",
-            "What's your expectation of shedding, frequent or infrequent?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). On a scale of one to five, with five being the highest, what's your tolerence level for shedding?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). What's your expectation of shedding, frequent or infrequent?"
         )
     elif topic_id == TOPIC_KIDS:
         um = UtterMore(
-            "Do you have (kids|a kid) under ten?",
-            "Do you have small kids at home?",
-            "Do you want a kids-friendly dog?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you have (kids|a kid) under ten?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you have small kids at home?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you want a kids-friendly dog?"
         )
     elif topic_id == TOPIC_ACT:
         um = UtterMore(
-            "On a scale one to four, with four being the highest, what's your activity level?",
-            "Do you excercise very often?",
-            "How often do you excercise?"
+            "(Got it|Gotcha|I see|OK|Roger that|Good). On a scale one to four, with four being the highest, what's your activity level?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). Do you excercise very often?",
+            "(Got it|Gotcha|I see|OK|Roger that|Good). How often do you excercise?"
         )
     elif topic_id == TOPIC_WELCOME:
         um = UtterMore(
