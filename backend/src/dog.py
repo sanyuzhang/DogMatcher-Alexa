@@ -40,12 +40,14 @@ def GetDogsDiff(dog1, dog2):
         pow(dog1.shedN - dog2.shedN, 2)) / 4
 
 def GetDogsDiffCategory(dog1, dog2):
+    # put dogs into different category based on their
+    # difference on feature space
     diff = GetDogsDiff(dog1, dog2)
     if diff < 0.13:
-        return 0
+        return 0 # very similar
     elif diff >= 0.13 and diff < 0.21:
-        return 1
+        return 1 # similar
     elif diff >= 0.21 and diff < 0.33:
-        return 2
+        return 2 # somewhat different
     else:
-        return 3
+        return 3 # very different

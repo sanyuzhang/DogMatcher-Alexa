@@ -5,15 +5,14 @@ import random
 import sqlite3
 from utter_more import UtterMore
 from config import *
-
 from dog import *
 
-# activity_level = ["","needs a lot of excercise","needs regular excercise","is energetic","is calm"]
-# barking_level = ["","barks when necessary","doesn't like barking very much","tends to bark sometimes","barks frequently","likes to be vocal"]
-# shed_level = ["","infrequently","seasonally","frequently","occasionally","regularly"]
-# trainability = ["", "maybe stubborn", "is agreeable", "is eager to please", "is independet", "is easy to train"]
-# character = ["", "smallest dog breeds", "medium dog breeds", "largest dog breeds", "smartest dogs", "hypoallergenic dogs", "best family dogs", "best guard dogs", "best dogs for kids", "best dogs for apartments dwellers", "hairless dog breeds"]
-# coat_type = ["","hairless","short","medium","long","smooth","wire"]
+activity_level = ["","needs a lot of excercise","needs regular excercise","is energetic","is calm"]
+barking_level = ["","barks when necessary","doesn't like barking very much","tends to bark sometimes","barks frequently","likes to be vocal"]
+shed_level = ["","infrequently","seasonally","frequently","occasionally","regularly"]
+trainability = ["", "maybe stubborn", "is agreeable", "is eager to please", "is independet", "is easy to train"]
+character = ["", "smallest dog breeds", "medium dog breeds", "largest dog breeds", "smartest dogs", "hypoallergenic dogs", "best family dogs", "best guard dogs", "best dogs for kids", "best dogs for apartments dwellers", "hairless dog breeds"]
+coat_type = ["","hairless","short","medium","long","smooth","wire"]
 
 
 def randomUtter(utters):
@@ -121,21 +120,27 @@ def compareDogsSame(dog1, dog2, att):
         dog1.name + " " + DOG_ATT[att]["verb"][0] + " as " + DOG_ATT[att]["adj"][0] + " as " + dog2.name + 
         ". They both " + DOG_ATT[att]["units2"][attValue],
     )
-    return randomUtter(ut)
+    return randomUtter(ut) + "."
 
 def compareDogsAnd(dog1, dog2, att):
     attValues = [getattr(dog1, att) - 1, getattr(dog2, att) - 1]
     connective = "and" if abs(attValues[0] - attValues[1]) < 2 else "(but|while)"
     ut = UtterMore(
-        "(For " + DOG_ATT[att]["name"] + ", |)" + 
+        "(For the " + DOG_ATT[att]["name"] + ", |)" + 
         dog1.name + " " + DOG_ATT[att]["units1"][attValues[0]] + ", " + connective + " " + 
         dog2.name + " " + DOG_ATT[att]["units1"][attValues[1]] + ".",
     )
     return randomUtter(ut)
 
 def compareDogs(dog1, dog2):
-    print("\n**********************\nComparing " + dog1.name + " and " + dog2.name + ":\n")
     res = ""
+    conf = UtterMore(
+        "(Abosolutely|Sure)!",
+        "No problem!",
+        "Here you go!",
+        "Comparing " + dog1.name + " and " + dog2.name + ",",
+    )
+    res += randomUtter(conf) + " "
     # Get overall difference
     diff = GetDogsDiffCategory(dog1, dog2)
     if diff == 0:
@@ -154,12 +159,10 @@ def compareDogs(dog1, dog2):
         ut = UtterMore(
             dog1.name + " is very different to " + dog2.name,
         )
-    res += randomUtter(ut) + "\n"
+    res += randomUtter(ut) + ". "
     
     # Compare each attribute
-    # dogAtts = list(dog1.__dict__.keys())
-    # dogAtts.remove('name')
-    dogAtts = ['size', 'actLvl', 'barkLvl', 'shed']
+    dogAtts = ['size', 'actLvl', 'barkLvl', 'shed'] 
     # Group attributes by difference
     sameAtts = []
     diffAtts = []
@@ -168,14 +171,21 @@ def compareDogs(dog1, dog2):
             sameAtts.append(att)
         else:
             diffAtts.append(att)
-    
-    if len(sameAtts) > 1:
-        res += compareDogsSameAll(dog1, dog2, sameAtts) + "\n"
+
+    if len(sameAtts) > 1: # if two dogs have more than one attribute that have the same value
+        res += compareDogsSameAll(dog1, dog2, sameAtts) + " "
     elif len(sameAtts) == 1:
-        res += compareDogsSame(dog1, dog2, sameAtts[0]) + "\n"
+        res += compareDogsSame(dog1, dog2, sameAtts[0]) + " "
     
     for att in diffAtts:
-        res += compareDogsAnd(dog1, dog2, att) + "\n"
+        res += compareDogsAnd(dog1, dog2, att) + " "
+    
+    com = UtterMore(
+        " I like " + dog1.name + " better, but both of them make a great pet!",
+        " Either of them make a great pet!",
+        " I'm sure you would love either of them!",
+    )
+    res += randomUtter(com)
 
     return res
 
@@ -196,6 +206,7 @@ def GetDogsDiffDistribution(dogs):
     print(dogGroups)
 
 if __name__ == '__main__':
+    # testing
     # Setup database access
     DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
     connection = sqlite3.connect(DB_PATH)
@@ -209,12 +220,11 @@ if __name__ == '__main__':
     # cursor.execute("SELECT * FROM dogs WHERE id == 5 or id == 7")
     cursor.execute("SELECT * FROM dogs")
     rows = cursor.fetchall()
-    
-    #print(elaborate_result(dog[0]))
+
+    # 
     dogs = []
     for row in rows:
         dogs.append(Dog(row))
-        #print(dogs[-1])
 
     GetDogsDiffDistribution(dogs)
     
