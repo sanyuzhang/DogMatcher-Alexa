@@ -59,4 +59,4 @@ ATTRIBUTE_STATE = "state"
 ATTRIBUTE_DOG_PARAMETER = "para"
 
 # Path to database
-DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
+DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../dogs.db3'
