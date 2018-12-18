@@ -11,3 +11,4 @@ requests==2.20.1
 urllib3==1.24.1
 utter-more==1.0.1
 Werkzeug==0.14.1
+Flask-Ask==0.9.7
