@@ -1,7 +1,6 @@
 import random
 from utter_more import UtterMore
 
-
 TOPIC_UNKNOWN = -1
 TOPIC_WELCOME = 0
 TOPIC_EXP = 1
@@ -24,6 +23,7 @@ def generate_say_again():
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
 
+
 def generate_confirmation(after_clarification=False):
     if after_clarification:
         um = UtterMore(
@@ -39,8 +39,8 @@ def generate_confirmation(after_clarification=False):
     um.iter_build_utterances()
     return random.choice(random.choice(um.utterances))
 
+
 def generate_utter(topic_id, after_clarification=False):
-    
     prefix = generate_confirmation(after_clarification)
 
     if topic_id == TOPIC_EXP:
@@ -158,9 +158,9 @@ def generate_clarification(topic_id):
         )
     elif topic_id == TOPIC_APT:
         um = UtterMore(
-             "(For people who live in close quarters with others or simply prefer \
-             quiet, it’s necessary to find a dog breed that quieter at home. By replying yes\
-             , I'll find you those kind. ",
+            "(For people who live in close quarters with others or simply prefer \
+            quiet, it’s necessary to find a dog breed that quieter at home. By replying yes\
+            , I'll find you those kind. ",
             "Because by saying no, which means that the size and the barking level of a dog \
             doesn't bother you, I can offer you a greater variety of choices. ",
         )

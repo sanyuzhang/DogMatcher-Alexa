@@ -1,6 +1,3 @@
-import os
-import json
-import random
 import sqlite3
 from text_generator import *
 from result_generator import elaborate_result
@@ -23,7 +20,7 @@ def generate_detail_json(dog):
                 "title": "Dog Matcher",
                 "text": generate_card_utter(TOPIC_UNKNOWN)
             },
-            "shouldEndSession": False 
+            "shouldEndSession": False
         }
     }
 
@@ -76,12 +73,12 @@ def generate_card_json(dogs, top_n=5):
             reply["response"]["outputSpeech"]["text"] = content
             reply["response"]["card"]["text"] = content
 
-    print(reply)
+    # print(reply)
     return reply
 
 
 if __name__ == '__main__':
-    # test
+    # for testing only
     conn = sqlite3.connect(DB_PATH, isolation_level=None, check_same_thread=False)
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM %s" % ('dogs'))

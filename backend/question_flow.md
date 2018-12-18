@@ -1,5 +1,7 @@
 ## Questions & answer types
 
+All the questions and the type of answer expected
+
 1. Experience with dogs
    1. binary
 2. How much time training dogs

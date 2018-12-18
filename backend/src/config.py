@@ -1,7 +1,10 @@
 import os
 
+# The id for the end of the questions
 END_OF_QUESTION = 8
 
+# Question flow
+# THe ID for next question, given previous question
 DIRECTION_QUESTIONS = {
     1: {
         # Have experience with dogs
@@ -26,6 +29,7 @@ DIRECTION_QUESTIONS = {
     7: 8,
 }
 
+# What parameter each question answers
 QUESTION_PARAMETER = {
     2: "trainTime",
     4: "aptDog",
@@ -35,6 +39,7 @@ QUESTION_PARAMETER = {
     8: "activityLevel"
 }
 
+# Default value for each dog parameter
 DEFAULT_PARAMETER = {
     # 1-5, 5 is the mostly easy trained
     "trainTime": 5,
@@ -53,4 +58,5 @@ DEFAULT_PARAMETER = {
 ATTRIBUTE_STATE = "state"
 ATTRIBUTE_DOG_PARAMETER = "para"
 
+# Path to database
 DB_PATH = os.path.dirname(os.path.realpath(__file__)) + '/../../dogs.db3'
