@@ -7,6 +7,10 @@ from utter_more import UtterMore
 from config import *
 from dog import *
 
+"""
+Generate result when comparing two dogs
+"""
+
 activity_level = ["", "needs a lot of excercise", "needs regular excercise", "is energetic", "is calm"]
 barking_level = ["", "barks when necessary", "doesn't like barking very much", "tends to bark sometimes", "barks frequently", "likes to be vocal"]
 shed_level = ["", "infrequently", "seasonally", "frequently", "occasionally", "regularly"]

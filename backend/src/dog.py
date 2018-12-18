@@ -2,6 +2,10 @@ import os
 import json
 from math import *
 
+"""
+Dog class for compare algorithm
+"""
+
 SIZE_MAX = 5
 ACTIVITY_MAX = 4
 BARKING_MAX = 5

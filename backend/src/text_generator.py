@@ -1,6 +1,10 @@
 import random
 from utter_more import UtterMore
 
+"""
+Generate respond & questions
+"""
+
 TOPIC_UNKNOWN = -1
 TOPIC_WELCOME = 0
 TOPIC_EXP = 1

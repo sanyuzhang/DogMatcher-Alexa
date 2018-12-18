@@ -3,6 +3,10 @@ from text_generator import *
 from result_generator import elaborate_result
 from config import *
 
+"""
+Functions that generate card view response back to Alexa
+"""
+
 
 def generate_detail_json(dog):
     # More detail information about one dog

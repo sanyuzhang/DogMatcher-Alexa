@@ -12,6 +12,11 @@ from card_generator import generate_detail_json, generate_card_json
 from query import query
 from config import *
 
+"""
+Server
+The entry for Alexa skill endpoint
+"""
+
 app = Flask(__name__)
 ask = Ask(app, "/")
 log = logging.getLogger('flask_ask').setLevel(logging.DEBUG)

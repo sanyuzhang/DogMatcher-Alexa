@@ -52,5 +52,3 @@ A flask server will run on port 5555.
 1. Create an Alexa Skill and copy `alexa_skill.json` into the JSON editor.
 2. Set the endpoint to the Flask server.
 3. Build and run skill.
-
-
