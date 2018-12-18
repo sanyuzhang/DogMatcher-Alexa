@@ -1,69 +1,56 @@
+# DogMatcher
 
-## Project Flowchart
+A interactive system that helps user find the most suitable dog breed based on user’s life habits
+
+Team member: Zijie Wu, Guirong Liu, Shangyu Zhang, Anyan Xie
+
+Links:
+* [Presentation](https://docs.google.com/presentation/d/1QjM9lr_FkqYJaXlHvrHAILrnm93DXM9eHZcHu7-WS4M/edit?usp=sharing)
+
+## Design
+
+This project involves 2 parts: Alexa skill and a backend.
+
+The Alexa Skill will parse users' utterances, then trigger correct intent, which will then handled by backend, generating proper response.
+
+### Project Flowchart
 
 ![picture not found](https://i.ibb.co/RHnWJkG/Screen-Shot-2018-12-15-at-14-46-12.png)
 
-## Alexa Skill Development
+## How to use
 
-https://developer.amazon.com
+This project involves 2 parts: Alexa Skill and a backend
 
-Email: demondevil034@gmail.com
+### Backend Setups
 
-password: asr@18fall
+#### Install Dependency
 
-## Server
-
-IP: 45.63.10.52  
-Domain Name: [https://kksk.biz](https://kksk.biz)  
-User & passpword:
-
-```
-# DONT SHARE
-root s8E,q2!TP*Cb$Zwg
-jeff 498079667
-
-# to login via ssh:
-# ssh kksk.biz -l jeff
-```
-
-Server：nginx. Site conf file location (don't modify)：`/etc/nginx/sites-available/main`  
-
-All request made to `/dogmatcher` will be redirected (via nginx proxy) to localhost:5555 where Flask should be listening on.   
-
-For example: `https://kksk.biz/dogmatcher/abc` will be redirected to `localhost:5555/abc`
-
-
-API URL (POST): [https://kksk.biz/dogmatcher/](https://kksk.biz/dogmatcher/)
-
-Python Server：flask
-
-To run flask:
-
-```
-cd /home/jeff
-# created by virutalenv
-source dogmatcher/bin/activate
-python flask_test.py
-```
-
-## Setups
-
-* Install Virtual Env (pip3)
-```
+```bash
+# install virtualenv to easily manage python versions
 pip install virtualenv 
-```
 
-* Create your own ENV like
-```
+# Create your own ENV like
 virtualenv ENV
-```
 
-* Source your ENV
-```
+# Source your ENV
 source ENV\bin\activate
-```
 
-* Install packages by typing
-```
+# Install packages by typing
 pip install -r requirements.txt
 ```
+
+#### Run
+
+To run backend:
+1. Enable the correct python virtual env
+2. `python backend/src/main.py`
+
+A flask server will run on port 5555.
+
+### Alexa Skill setup
+
+1. Create an Alexa Skill and copy `alexa_skill.json` into the JSON editor.
+2. Set the endpoint to the Flask server.
+3. Build and run skill.
+
+

@@ -1,0 +1,584 @@
+{
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "dog matcher",
+            "intents": [
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": [
+                        "exit",
+                        "cancel",
+                        "stop"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "confirm",
+                    "slots": [],
+                    "samples": [
+                        "Yes i have",
+                        "maybe yes",
+                        "yes please",
+                        "I did",
+                        "I have",
+                        "Ok",
+                        "Yeah",
+                        "Yes I do",
+                        "Yes"
+                    ]
+                },
+                {
+                    "name": "deny",
+                    "slots": [],
+                    "samples": [
+                        "no i don't have kids",
+                        "I don't",
+                        "may no",
+                        "no no",
+                        "I don't have kids",
+                        "may not",
+                        "I didn't",
+                        "I haven't",
+                        "Nah",
+                        "No I do not",
+                        "No I don't",
+                        "No"
+                    ]
+                },
+                {
+                    "name": "numeric",
+                    "slots": [
+                        {
+                            "name": "slot_number",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "{slot_number} hours",
+                        "{slot_number}"
+                    ]
+                },
+                {
+                    "name": "ans_home_type",
+                    "slots": [
+                        {
+                            "name": "slot_home",
+                            "type": "home"
+                        }
+                    ],
+                    "samples": [
+                        "{slot_home} with yards",
+                        "My home is {slot_home}",
+                        "I live in an {slot_home}",
+                        "l live in a {slot_home}",
+                        "{slot_home}"
+                    ]
+                },
+                {
+                    "name": "ans_train_time_week",
+                    "slots": [
+                        {
+                            "name": "slot_number",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "That would be {slot_number} hours per week",
+                        "Maybe {slot_number} hours every week",
+                        "i normally spend {slot_number} hours per week training my dog"
+                    ]
+                },
+                {
+                    "name": "ans_exp_level",
+                    "slots": [
+                        {
+                            "name": "slot_exp_level",
+                            "type": "exp_level"
+                        }
+                    ],
+                    "samples": [
+                        "{slot_exp_level} before",
+                        "{slot_exp_level} {slot_exp_level}",
+                        "I don't have {slot_exp_level} before",
+                        "I have {slot_exp_level}",
+                        "{slot_exp_level}"
+                    ]
+                },
+                {
+                    "name": "ans_barking_level",
+                    "slots": [
+                        {
+                            "name": "slot_barking_level",
+                            "type": "barking_level"
+                        }
+                    ],
+                    "samples": [
+                        "I prefer {slot_barking_level}",
+                        "I want a {slot_barking_level} one",
+                        "I think {slot_barking_level}",
+                        "{slot_barking_level}",
+                        "maybe {slot_barking_level}"
+                    ]
+                },
+                {
+                    "name": "ans_shed_level",
+                    "slots": [
+                        {
+                            "name": "slot_shed_level",
+                            "type": "shed_level"
+                        }
+                    ],
+                    "samples": [
+                        "I think {slot_shed_level}",
+                        "maybe {slot_shed_level}",
+                        "{slot_shed_level} "
+                    ]
+                },
+                {
+                    "name": "ans_activity_level",
+                    "slots": [
+                        {
+                            "name": "slot_activity_level",
+                            "type": "activity_level"
+                        }
+                    ],
+                    "samples": [
+                        "I {slot_activity_level}",
+                        "{slot_activity_level}"
+                    ]
+                },
+                {
+                    "name": "clarification",
+                    "slots": [
+                        {
+                            "name": "slot_pronoun",
+                            "type": "pronoun"
+                        }
+                    ],
+                    "samples": [
+                        "What do you mean by {slot_pronoun}",
+                        "Why do you ask me {slot_pronoun}",
+                        "What do you mean by asking me {slot_pronoun}",
+                        "Why does {slot_pronoun} matter"
+                    ]
+                },
+                {
+                    "name": "info_request",
+                    "slots": [
+                        {
+                            "name": "slot_ordinal",
+                            "type": "ordinal"
+                        },
+                        {
+                            "name": "slot_breed",
+                            "type": "breed"
+                        },
+                        {
+                            "name": "slot_pronoun",
+                            "type": "pronoun"
+                        }
+                    ],
+                    "samples": [
+                        "can you show more info about {slot_pronoun}",
+                        "Can you tell me more about {slot_pronoun}",
+                        "{slot_breed} sounds good i want more information about {slot_breed}",
+                        "I like {slot_breed} can you tell me more about {slot_pronoun}",
+                        "tell me more about the {slot_ordinal} one",
+                        "Can you tell me more about the {slot_ordinal} one"
+                    ]
+                },
+                {
+                    "name": "breed_compare",
+                    "slots": [
+                        {
+                            "name": "slot_ordinal_c",
+                            "type": "ordinal"
+                        },
+                        {
+                            "name": "slot_ordinal_cc",
+                            "type": "ordinal"
+                        }
+                    ],
+                    "samples": [
+                        "Compare the {slot_ordinal_c} and the {slot_ordinal_cc}",
+                        "Can you compare the {slot_ordinal_c} and the {slot_ordinal_cc}",
+                        "Could you compare the {slot_ordinal_c} and the {slot_ordinal_cc} one",
+                        "Compare the {slot_ordinal_c} and {slot_ordinal_cc} breed",
+                        "Can you tell me the difference between the {slot_ordinal_c} and {slot_ordinal_cc} one"
+                    ]
+                },
+                {
+                    "name": "state_reset",
+                    "slots": [
+                        {
+                            "name": "slot_dog",
+                            "type": "dog"
+                        }
+                    ],
+                    "samples": [
+                        "Can you recommend a {slot_dog} for me",
+                        "I want a {slot_dog}",
+                        "Can you find me a suitable {slot_dog}",
+                        "I would like to find a {slot_dog}",
+                        "Can you find a {slot_dog} for me"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "home",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "apt",
+                                "synonyms": [
+                                    "condo",
+                                    "condominum",
+                                    "flat",
+                                    "small apartment",
+                                    "small place",
+                                    "apartment",
+                                    "building",
+                                    "an apartment"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "house",
+                                "synonyms": [
+                                    "house with a yard",
+                                    "small house",
+                                    "mansion",
+                                    "big house",
+                                    "large house",
+                                    "a house"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "exp_level",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "no",
+                                "synonyms": [
+                                    "I 've never had one",
+                                    "I 've never had a dog ",
+                                    "I never had a dog",
+                                    "I never had one",
+                                    "I never had one before",
+                                    "I don't have a puppy",
+                                    "I don't have a dog",
+                                    "I don't have one before",
+                                    "I have nothing",
+                                    "I have no experience",
+                                    "not so much",
+                                    "not good"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "yes",
+                                "synonyms": [
+                                    "I had a puppy",
+                                    "I have a puppy",
+                                    "I had a dog",
+                                    "I have a dog",
+                                    "I had one before",
+                                    "I own one",
+                                    "I had one",
+                                    "I have one",
+                                    "I owned one before",
+                                    "I owned one"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "barking_level",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "quiet",
+                                    "when necessary",
+                                    "infrequent"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "2",
+                                "synonyms": [
+                                    "less frequent",
+                                    "quieter"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3",
+                                "synonyms": [
+                                    "medium"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "4",
+                                "synonyms": [
+                                    "frequent"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "5",
+                                "synonyms": [
+                                    "loud",
+                                    "more vocal",
+                                    "vocal"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "shed_level",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "2",
+                                "synonyms": [
+                                    "less shedding"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3",
+                                "synonyms": [
+                                    "infrequent"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "no shedding",
+                                    "hypoallergenic"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "4",
+                                "synonyms": [
+                                    "groom"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "5",
+                                "synonyms": [
+                                    "frequent",
+                                    "regularly",
+                                    "no hair cutting",
+                                    "mouth full of hair",
+                                    "long hair"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "activity_level",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "4",
+                                "synonyms": [
+                                    "I don't really excercise",
+                                    "lazy",
+                                    "never excercise",
+                                    "hardly ever workout",
+                                    "don't excercise",
+                                    "rarely excercise"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "3",
+                                "synonyms": [
+                                    "once a week",
+                                    "not very often",
+                                    "sometimes excercise"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "2",
+                                "synonyms": [
+                                    "usually",
+                                    "workout regularly"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "1",
+                                "synonyms": [
+                                    "like sports",
+                                    "very often",
+                                    "always",
+                                    "go on an adventure",
+                                    "like adventure"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "pronoun",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "it"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "that"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "this"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "ordinal",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "tenth"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "ninth"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "eighth"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "seventh"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "sixth"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fifth",
+                                "synonyms": [
+                                    "fifth"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "fourth",
+                                "synonyms": [
+                                    "fourth"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "third",
+                                "synonyms": [
+                                    "third"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "second",
+                                "synonyms": [
+                                    "second"
+                                ]
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "first",
+                                "synonyms": [
+                                    "first"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "breed",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "golden retriever"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "toypoodle"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "dog",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "dog"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
